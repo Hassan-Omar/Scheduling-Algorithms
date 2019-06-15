@@ -97,6 +97,11 @@ public class MainMenu extends javax.swing.JFrame {
 
         start.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         start.setText("Start");
+        start.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                startMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -170,8 +175,6 @@ public class MainMenu extends javax.swing.JFrame {
                         }    
                         
           
-                        FCFS fcfs =new FCFS() ;
-                        fcfs.drive(readen_Tasks);
                         
              
                     } catch (IOException e) {
@@ -183,6 +186,29 @@ public class MainMenu extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_openMouseClicked
+
+    private void startMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startMouseClicked
+
+    // deyecte which selected algorithm 
+    if(algorithmsCombo.getSelectedIndex()==0)
+    {  
+     FCFS fcfs =new FCFS() ;
+     String output = "\r\n " +"Used Algoruthm" +fcfs.getName()  ; 
+     List<Task> tasks = fcfs.drive(readen_Tasks);
+     output +=  UtileMethods.printer(tasks) ; 
+     output += " Total Average Waiting Time  = "+fcfs.getAwt()+"us" ;
+     output += " Total Average Response Time  = "+fcfs.getArt()+"us" ;
+     output += " Total Average Total Around Time  = "+fcfs.getAtt()+"us" ;
+     output += " Utilization Factor  = "+fcfs.getUfactor()+"%" ;
+     output += " Throughput  = "+fcfs.getThroughput()+"task per us" ;
+     output += " Proportionality  = "+fcfs.getProp()+"us" ;
+     
+     out.setText(output) ; 
+    }
+
+
+        
+    }//GEN-LAST:event_startMouseClicked
 
     /**
      * @param args the command line arguments

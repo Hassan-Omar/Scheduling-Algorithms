@@ -1,7 +1,6 @@
 
 package task.schedular;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,12 +11,14 @@ import java.util.List;
 public class FCFS extends Algorithm {
 
     public FCFS() {
+        
+        this.setName("FCFS");
     }
 
     
     
    //----------------------------------------------------------------------- 
-   public void drive (List<Task> tasks)
+   public List<Task>  drive (List<Task> tasks)
    {
    // now list the tasks based on arrival time 
    
@@ -52,14 +53,16 @@ public class FCFS extends Algorithm {
           
           
         List<Task> tasks_Setted =   UtileMethods.setParam(tasks) ;
-       
+  
+        // start calculation using the parent methods 
+        this.art = this.art_Calculation(tasks_Setted);   
+         this.att = this.att_Calculation(tasks_Setted);  
+      this.awt = this.awt_Calculation(tasks_Setted); 
+        this.ufactor = this.ufactor_Calculation(tasks_Setted); 
+        this.throughput = this.throughput_Calculation(tasks_Setted); 
       
-       // start calculation 
-       
-      this.ufactor = this.ufactor_Calculation(tasks_Setted); 
-      System.out.println(ufactor);
-     
-     
+      
+      return tasks_Setted ;
    
    }
 

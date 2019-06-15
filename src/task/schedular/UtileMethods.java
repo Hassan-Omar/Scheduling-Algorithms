@@ -34,7 +34,7 @@ public class UtileMethods {
     
     
     // this task just view the data 
-   static  String printer (List<Task> tasks)
+   public static  String printer (List<Task> tasks)
     {
     String result = "TASK       START_TIME       END_TIME       DURATION       STATUS  \r\n";
     
