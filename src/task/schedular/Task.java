@@ -10,13 +10,66 @@ package task.schedular;
  * @author h.omar
  */
 public class Task {
-    private int num ,burstTime,arrivalTime , periorty ; 
+    private int num ,burstTime,arrivalTime ,startTime ,endTime, deadLine ; 
 
-    public Task(int num, int burstTime, int arrivalTime, int periorty) {
+    public int getDeadLine() {
+        return deadLine;
+    }
+
+    public void setDeadLine(int deadLine) {
+        this.deadLine = deadLine;
+    }
+
+    public int getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(int endTime) {
+        this.endTime = endTime;
+    }
+    private int waitTime , totalATime  ,responseTime ;
+
+    public int getResponseTime() {
+        return responseTime;
+    }
+
+    public void setResponseTime(int responseTime) {
+        this.responseTime = responseTime;
+    }
+
+    public int getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(int startTime) {
+        this.startTime = startTime;
+    }
+
+    Task() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public int getWaitTime() {
+        return waitTime;
+    }
+
+    public void setWaitTime(int waitTime) {
+        this.waitTime = waitTime;
+    }
+
+    public int getTotalATime() {
+        return totalATime;
+    }
+
+    public void setTotalATime(int totalATime) {
+        this.totalATime = totalATime;
+    }
+
+    public Task(int num, int burstTime, int arrivalTime ) {
         this.num = num;
         this.burstTime = burstTime;
         this.arrivalTime = arrivalTime;
-        this.periorty = periorty;
+        
     }
 
     public int getNum() {
@@ -43,11 +96,5 @@ public class Task {
         this.arrivalTime = arrivalTime;
     }
 
-    public int getPeriorty() {
-        return periorty;
-    }
-
-    public void setPeriorty(int periorty) {
-        this.periorty = periorty;
-    }
+    
 }

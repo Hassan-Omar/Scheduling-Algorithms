@@ -155,6 +155,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Open"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="openMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="start">
       <Properties>

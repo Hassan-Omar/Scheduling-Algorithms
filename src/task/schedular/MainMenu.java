@@ -5,12 +5,24 @@
  */
 package task.schedular;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JFileChooser;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
 /**
  *
  * @author h.omar
  */
 public class MainMenu extends javax.swing.JFrame {
 
+    List<Task> readen_Tasks = null ;  
+    
+    
     /**
      * Creates new form MainMenu
      */
@@ -77,6 +89,11 @@ public class MainMenu extends javax.swing.JFrame {
 
         open.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         open.setText("Open");
+        open.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                openMouseClicked(evt);
+            }
+        });
 
         start.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         start.setText("Start");
@@ -115,15 +132,63 @@ public class MainMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void openMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_openMouseClicked
+         //Choose XLS FILE
+        JFileChooser Chooser = new JFileChooser();
+        int Variable = Chooser.showOpenDialog(null);
+    
+    
+              if (Variable == JFileChooser.APPROVE_OPTION) 
+                {                     
+
+                    try {
+                        
+                        // create work sheet 
+                        HSSFWorkbook lta = new HSSFWorkbook(new FileInputStream(Chooser.getSelectedFile()));
+                        HSSFSheet Sheet = lta.getSheet("Sheet0");
+                       
+                        // neasted loop to read the data
+                        for(int i=1; i<4 ;i++)
+
+                        {
+                            if( readen_Tasks ==null)
+                             readen_Tasks = new ArrayList<>() ; 
+        
+                           HSSFRow taskRow= Sheet.getRow(i); // this is row no i in sheet  
+                           Task task_i = new Task() ; 
+                           
+                           // col reading we don't need col 0
+                           // arrival time col 1
+                           task_i.setArrivalTime(Integer.parseInt(taskRow.getCell(1).toString()));
+                           // arrival time col 2
+                           task_i.setBurstTime(Integer.parseInt(taskRow.getCell(2).toString()));
+                           // arrival time col 3                           
+                           task_i.setDeadLine(Integer.parseInt(taskRow.getCell(3).toString()));
+                            
+                          readen_Tasks.add(task_i) ;   
+                            
+                        }    
+                        
+          
+                        FCFS fcfs =new FCFS() ;
+                        fcfs.drive(readen_Tasks);
+                        
+             
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+           
+
+        
+        
+    }//GEN-LAST:event_openMouseClicked
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+      
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

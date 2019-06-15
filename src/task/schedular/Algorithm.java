@@ -5,6 +5,8 @@
  */
 package task.schedular;
 
+import java.util.List;
+
 /**
  *
  * @author h.omar
@@ -13,16 +15,7 @@ public abstract class Algorithm {
     String name ; 
     float awt , art ,att , ufactor , throughput , prop ; 
 
-    public Algorithm(String name, float awt, float art, float att, float ufactor, float throughput, float prop) {
-        this.name = name;
-        this.awt = awt;
-        this.art = art;
-        this.att = att;
-        this.ufactor = ufactor;
-        this.throughput = throughput;
-        this.prop = prop;
-    }
-
+    
     public String getName() {
         return name;
     }
@@ -79,11 +72,35 @@ public abstract class Algorithm {
         this.prop = prop;
     }
     
- public abstract float ufactor_Calculation ();
- public abstract float throughput_Calculation ();
- public abstract float prop_Calculation ();
- public abstract float awt_Calculation ();
- public abstract float art_Calculation ();
- public abstract float att_Calculation ();
+ public abstract float ufactor_Calculation (List<Task> tasks);
+ 
+ 
+ public abstract float throughput_Calculation (List<Task> tasks);
+ 
+ 
+ public abstract float prop_Calculation (List<Task> tasks);
+ 
+ 
+ //____________________________________________________________________________ 
+ public  float awt_Calculation (List<Task> tasks)
+ {
+ 
+        int totalWaitingTime = 0 ;
+        int numOfTasks = 0 ; 
+        for(int i=0 ; i<tasks.size() ; i++)
+        {
+        // calculate total time by looping on all process 
+        totalWaitingTime += tasks.get(i).getWaitTime();
+        // increase number of tasks
+        numOfTasks++;
+        }
+        // average waiting time  = total time / num of tasks 
+        return totalWaitingTime/numOfTasks ; 
+ 
+ 
+ }
+ //____________________________________________________________________________
+ public abstract float art_Calculation (List<Task> tasks);
+ public abstract float att_Calculation (List<Task> tasks);
     
 }
