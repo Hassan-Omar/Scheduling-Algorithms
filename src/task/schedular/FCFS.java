@@ -1,10 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package task.schedular;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,38 +25,41 @@ public class FCFS extends Algorithm {
        {
           for (int k=0; k<tasks.size()-i-1 ; k++)
           {
-           Task temp = new Task() ;
-           temp = tasks.get(i) ; 
-           tasks.set(i, tasks.get(i+1)) ; 
+           if(tasks.get(k+1).getArrivalTime() < tasks.get(k).getArrivalTime() )
+           {// sawp task no i , i+1 
+           Collections.swap(tasks, k, k+1);
+           }
            
           }
           
+          
+       }
           // now we need to set start and end time based on FCFS
           // |____A____|__C__|____D_____|_B_| 
           // start of c = end of A
-          for(int k=0; k<tasks.size(); k++)
+          for(int index=0; index<tasks.size(); index++)
           {   
               
-              if(k==0)
-                  tasks.get(k).setStartTime(tasks.get(0).getArrivalTime());
+              if(index==0)
+                  tasks.get(0).setStartTime(tasks.get(0).getArrivalTime());
               else 
-                  tasks.get(k).setStartTime(tasks.get(k-1).getEndTime());
+                  tasks.get(index).setStartTime(tasks.get(index-1).getEndTime());
               
               
               
-               tasks.get(k).setEndTime( tasks.get(k).getStartTime()+ tasks.get(k).getBurstTime());
-           
+               tasks.get(index).setEndTime( tasks.get(index).getStartTime()+ tasks.get(index).getBurstTime());
           }
           
           
         List<Task> tasks_Setted =   UtileMethods.setParam(tasks) ;
-       }
+       
       
        // start calculation 
        
-      this.awt = this.awt_Calculation(tasks) ; 
-       System.out.println(awt);
-       
+      awt= this.awt_Calculation(tasks_Setted); 
+      
+      System.out.println(awt);
+    
      
    
    }

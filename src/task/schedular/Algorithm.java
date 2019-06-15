@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package task.schedular;
 
 import java.util.List;
@@ -82,25 +77,54 @@ public abstract class Algorithm {
  
  
  //____________________________________________________________________________ 
+ // THIS to calculate average Waiting time
  public  float awt_Calculation (List<Task> tasks)
  {
  
         int totalWaitingTime = 0 ;
-        int numOfTasks = 0 ; 
         for(int i=0 ; i<tasks.size() ; i++)
         {
         // calculate total time by looping on all process 
         totalWaitingTime += tasks.get(i).getWaitTime();
-        // increase number of tasks
-        numOfTasks++;
         }
         // average waiting time  = total time / num of tasks 
-        return totalWaitingTime/numOfTasks ; 
+        float avWT =(float)totalWaitingTime/tasks.size() ; 
+        return  avWT; 
  
  
  }
  //____________________________________________________________________________
- public abstract float art_Calculation (List<Task> tasks);
- public abstract float att_Calculation (List<Task> tasks);
+  // THIS to calculate Response Waiting time
+ public  float art_Calculation (List<Task> tasks)
+  {
+ 
+        int totalResponseTime = 0 ;
+        for(int i=0 ; i<tasks.size() ; i++)
+        {
+        // calculate total time by looping on all process 
+        totalResponseTime += tasks.get(i).getResponseTime();
+        }
+        // average waiting time  = total time / num of tasks 
+        float avRT =(float)totalResponseTime/tasks.size() ; 
+        return  avRT; 
+ 
+ 
+ }
+ //____________________________________________________________________________
+  // THIS to calculate average Turn Around time
+ public  float att_Calculation (List<Task> tasks) {
+ 
+        int totalTurnTime = 0 ;
+        for(int i=0 ; i<tasks.size() ; i++)
+        {
+        // calculate total time by looping on all process 
+        totalTurnTime += tasks.get(i).getTotalATime();
+        }
+        // average waiting time  = total time / num of tasks 
+        float avTT =(float)totalTurnTime/tasks.size() ; 
+        return  avTT; 
+ 
+ 
+ }
     
 }

@@ -159,14 +159,14 @@ public class MainMenu extends javax.swing.JFrame {
                            
                            // col reading we don't need col 0
                            // arrival time col 1
-                           task_i.setArrivalTime(Integer.parseInt(taskRow.getCell(1).toString()));
+                           task_i.setArrivalTime((int)Float.parseFloat(taskRow.getCell(1).toString()));
                            // arrival time col 2
-                           task_i.setBurstTime(Integer.parseInt(taskRow.getCell(2).toString()));
+                           task_i.setBurstTime((int)Float.parseFloat(taskRow.getCell(2).toString()));
                            // arrival time col 3                           
-                           task_i.setDeadLine(Integer.parseInt(taskRow.getCell(3).toString()));
+                           task_i.setDeadLine((int)Float.parseFloat(taskRow.getCell(3).toString()));
                             
                           readen_Tasks.add(task_i) ;   
-                            
+                             // System.out.println("task i "+ task_i.getArrivalTime());
                         }    
                         
           

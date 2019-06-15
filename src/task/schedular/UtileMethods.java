@@ -25,8 +25,32 @@ public class UtileMethods {
            tasks.get(i).setResponseTime(start-arrival) ; 
            tasks.get(i).setWaitTime(end-arrival-burst) ;
            tasks.get(i).setTotalATime(end-arrival) ;
+           
+           
+           //System.out.println(" t  " +tasks.get(i).getWaitTime() );  
        }
     return tasks ; 
     }
     
+    
+    // this task just view the data 
+   static  String printer (List<Task> tasks)
+    {
+    String result = "TASK       START_TIME       END_TIME       DURATION       STATUS  \r\n";
+    
+       for(int i=0 ; i<tasks.size() ; i++)
+       {
+           result += tasks.get(i).getNum() + "       " ;
+           result += tasks.get(i).getStartTime() + "       " ; 
+           result += tasks.get(i).getEndTime()+ "       " ; 
+           result += ( tasks.get(i).getEndTime()-tasks.get(i).getStartTime() ) + "       " ; 
+           // WHAT IS THE STATUS 
+           result+="\r\n" ; 
+       }
+        
+        
+        
+    return result ;
+    
+    }
 }
