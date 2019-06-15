@@ -56,8 +56,8 @@ public class FCFS extends Algorithm {
       
        // start calculation 
        
-      att= this.att_Calculation(tasks_Setted); 
-      System.out.println(att);
+      art = this.art_Calculation(tasks_Setted); 
+      System.out.println(art);
      
      
    
