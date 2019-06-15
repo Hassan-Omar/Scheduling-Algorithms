@@ -56,25 +56,22 @@ public class FCFS extends Algorithm {
       
        // start calculation 
        
-      art = this.art_Calculation(tasks_Setted); 
-      System.out.println(art);
+      this.throughput = this.throughput_Calculation(tasks_Setted); 
+      System.out.println(throughput);
      
      
    
    }
 
-    @Override
-    public float ufactor_Calculation(List<Task> tasks) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public float throughput_Calculation(List<Task> tasks) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     @Override
     public float prop_Calculation(List<Task> tasks) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public float ufactor_Calculation(List<Task> tasks) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

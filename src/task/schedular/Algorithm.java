@@ -70,7 +70,14 @@ public abstract class Algorithm {
  public abstract float ufactor_Calculation (List<Task> tasks);
  
  
- public abstract float throughput_Calculation (List<Task> tasks);
+ public  float throughput_Calculation (List<Task> tasks)
+ {
+  // throuput  = num of task / cpu_total time 
+  //           = n / (end time of the last task)   
+  int n = tasks.size();
+     return ( (float)n /(tasks.get(n-1).getEndTime()) ); 
+ }
+        
  
  
  public abstract float prop_Calculation (List<Task> tasks);
