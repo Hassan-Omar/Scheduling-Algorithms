@@ -159,6 +159,7 @@ public class MainMenu extends javax.swing.JFrame {
                            Task task_i = new Task() ; 
                            
                            // col reading we don't need col 0
+                           task_i.setName(taskRow.getCell(0).toString()) ;
                            // arrival time col 1
                            task_i.setArrivalTime((int)Float.parseFloat(taskRow.getCell(1).toString()));
                            // arrival time col 2
@@ -192,7 +193,7 @@ public class MainMenu extends javax.swing.JFrame {
     if(algorithmsCombo.getSelectedIndex()==0)
     {  
      FCFS fcfs =new FCFS() ;
-     String output ="Used Algoruthm  -->  " +fcfs.getName() +"\r\n\r\n"  ; 
+     String output ="Used Algorithm  -->  " +fcfs.getName() +"\r\n\r\n"  ; 
      List<Task> tasks = fcfs.drive(readen_Tasks);
      output +=  UtileMethods.printer(tasks) ;
      output+= "\r\n" +"      ____________________________________       " + "\r\n" ; 
@@ -210,7 +211,7 @@ public class MainMenu extends javax.swing.JFrame {
     
     else if((algorithmsCombo.getSelectedIndex()==2)) {  
      SJF sjf =new SJF() ;
-     String output ="Used Algoruthm  -->  " +sjf.getName() +"\r\n\r\n"  ; 
+     String output ="Used Algorithm  -->  " +sjf.getName() +"\r\n\r\n"  ; 
      List<Task> tasks = sjf.drive(readen_Tasks);
      output +=  UtileMethods.printer(tasks) ;
      output+= "\r\n" +"      ____________________________________       " + "\r\n" ; 
@@ -227,7 +228,7 @@ public class MainMenu extends javax.swing.JFrame {
     {  }
     else if((algorithmsCombo.getSelectedIndex()==4)) {  
      EDF edf =new EDF() ;
-     String output ="Used Algoruthm  -->  " +edf.getName() +"\r\n\r\n"  ; 
+     String output ="Used Algorithm  -->  " +edf.getName() +"\r\n\r\n"  ; 
      List<Task> tasks = edf.drive(readen_Tasks);
      output +=  UtileMethods.printer(tasks) ;
      output+= "\r\n" +"      ____________________________________       " + "\r\n" ; 

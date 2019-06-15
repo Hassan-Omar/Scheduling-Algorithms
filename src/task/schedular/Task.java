@@ -5,8 +5,24 @@ package task.schedular;
  * @author h.omar
  */
 public class Task {
-    private int num ,burstTime,arrivalTime ,startTime ,endTime, deadLine ; 
+    private int  burstTime,arrivalTime ,startTime ,endTime, deadLine ,remainTime ; 
+    private String name ;
 
+    public int getRemainTime() {
+        return remainTime;
+    }
+
+    public void setRemainTime(int remainTime) {
+        this.remainTime = remainTime;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     public int getDeadLine() {
         return deadLine;
     }
@@ -58,22 +74,6 @@ public class Task {
     public void setTotalATime(int totalATime) {
         this.totalATime = totalATime;
     }
-
-    public Task(int num, int burstTime, int arrivalTime ) {
-        this.num = num;
-        this.burstTime = burstTime;
-        this.arrivalTime = arrivalTime;
-        
-    }
-
-    public int getNum() {
-        return num;
-    }
-
-    public void setNum(int num) {
-        this.num = num;
-    }
-
     public int getBurstTime() {
         return burstTime;
     }

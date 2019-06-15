@@ -41,7 +41,7 @@ public class UtileMethods {
     
        for(int i=0 ; i<tasks.size() ; i++)
        {
-           result += tasks.get(i).getNum() + "              " ;
+           result += tasks.get(i).getName()+ "              " ;
            result += tasks.get(i).getStartTime() + "              " ; 
            result += tasks.get(i).getEndTime()+ "             " ; 
            result += ( tasks.get(i).getEndTime()-tasks.get(i).getStartTime() ) + "            " ; 
