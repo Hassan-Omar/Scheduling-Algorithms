@@ -67,9 +67,23 @@ public abstract class Algorithm {
         this.prop = prop;
     }
     
- public abstract float ufactor_Calculation (List<Task> tasks);
- 
- 
+ public  float ufactor_Calculation (List<Task> tasks)
+         
+ {
+// throuput  = busy time / cpu_total time 
+//           = sum(burst time) / (end time of the last task) 
+     int sum = 0 ; 
+     for (int i=0; i<tasks.size(); i++) 
+     {
+      sum+=tasks.get(i).getBurstTime(); 
+     }
+     
+  int n = tasks.size();
+     return (100*(float)sum /(tasks.get(n-1).getEndTime()) ); 
+ }
+      
+//__________________________________________________________________
+  // THIS to calculate Throughput
  public  float throughput_Calculation (List<Task> tasks)
  {
   // throuput  = num of task / cpu_total time 
