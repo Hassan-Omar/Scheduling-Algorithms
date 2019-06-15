@@ -1,4 +1,5 @@
 package task.schedular;
+import java.util.Collections;
 import java.util.List;
 /**
  *
@@ -32,7 +33,7 @@ public class UtileMethods {
     return tasks ; 
     }
     
-    
+ //=============================================================================   
     // this task just view the data 
    public static  String printer (List<Task> tasks)
     {
@@ -53,4 +54,46 @@ public class UtileMethods {
     return result ;
     
     }
+   
+//==============================================================================
+   //this method sort the taskes based on arrivall time
+   
+   public static List<Task> sort_onArrival(List<Task> tasks)
+   {
+     for(int i=0; i<tasks.size(); i++)
+       {
+          for (int k=0; k<tasks.size()-i-1 ; k++)
+          {
+           if(tasks.get(k+1).getArrivalTime() < tasks.get(k).getArrivalTime() )
+           {// sawp task no i , i+1 
+           Collections.swap(tasks, k, k+1);
+           }
+           
+          }
+          
+          
+       }
+   return tasks ; 
+   }
+//==============================================================================
+   //this method sort the taskes based on arrivall time
+   
+   public static List<Task> sort_onBurst(List<Task> tasks)
+   {
+     for(int i=0; i<tasks.size(); i++)
+       {
+          for (int k=0; k<tasks.size()-i-1 ; k++)
+          {
+           if(tasks.get(k+1).getBurstTime()< tasks.get(k).getBurstTime())
+           {// sawp task no i , i+1 
+           Collections.swap(tasks, k, k+1);
+           }
+           
+          }
+          
+          
+       }
+   return tasks ; 
+   }
+   
 }

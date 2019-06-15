@@ -205,7 +205,24 @@ public class MainMenu extends javax.swing.JFrame {
      
      out.setText(output) ; 
     }
-
+    else if((algorithmsCombo.getSelectedIndex()==1)) 
+    {  }
+    
+    else if((algorithmsCombo.getSelectedIndex()==2)) {  
+     SJF sjf =new SJF() ;
+     String output ="Used Algoruthm  -->  " +sjf.getName() +"\r\n\r\n"  ; 
+     List<Task> tasks = sjf.drive(readen_Tasks);
+     output +=  UtileMethods.printer(tasks) ;
+     output+= "\r\n" +"      ____________________________________       " + "\r\n" ; 
+     output += "\r\n\r\nTotal Average Waiting Time  = "+sjf.getAwt()+" us"  +"\r\n" ;
+     output += "Total Average Response Time  = "+sjf.getArt()+" us"  +"\r\n";
+     output += "Total Average Total Around Time  = "+sjf.getAtt()+" us"  +"\r\n";
+     output += "Utilization Factor  = "+sjf.getUfactor()+"%"  +"\r\n";
+     output += "Throughput  = "+sjf.getThroughput()+" task per us"  +"\r\n";
+     output += "Proportionality  = "+sjf.getProp()  +"\r\n";
+     
+     out.setText(output) ; 
+    }
     
         
     }//GEN-LAST:event_startMouseClicked

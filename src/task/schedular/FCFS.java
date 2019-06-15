@@ -20,21 +20,9 @@ public class FCFS extends Algorithm {
    //----------------------------------------------------------------------- 
    public List<Task>  drive (List<Task> tasks)
    {
-   // now list the tasks based on arrival time 
-   
-       for(int i=0; i<tasks.size(); i++)
-       {
-          for (int k=0; k<tasks.size()-i-1 ; k++)
-          {
-           if(tasks.get(k+1).getArrivalTime() < tasks.get(k).getArrivalTime() )
-           {// sawp task no i , i+1 
-           Collections.swap(tasks, k, k+1);
-           }
-           
-          }
-          
-          
-       }
+          // now list the tasks based on arrival time 
+          tasks=  UtileMethods.sort_onArrival(tasks);
+     
           // now we need to set start and end time based on FCFS
           // |____A____|__C__|____D_____|_B_| 
           // start of c = end of A
