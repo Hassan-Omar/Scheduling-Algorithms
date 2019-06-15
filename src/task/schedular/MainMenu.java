@@ -207,7 +207,20 @@ public class MainMenu extends javax.swing.JFrame {
      out.setText(output) ; 
     }
     else if((algorithmsCombo.getSelectedIndex()==1)) 
-    {  }
+    {   
+     RR rr =new RR() ;
+     String output ="Used Algorithm  -->  " +rr.getName() +"\r\n\r\n"  ; 
+     List<Task> tasks = rr.drive(readen_Tasks);
+     output +=  UtileMethods.printer(tasks) ;
+     output+= "\r\n" +"      ____________________________________       " + "\r\n" ; 
+     output += "\r\n\r\nTotal Average Waiting Time  = "+rr.getAwt()+" us"  +"\r\n" ;
+     output += "Total Average Response Time  = "+rr.getArt()+" us"  +"\r\n";
+     output += "Total Average Total Around Time  = "+rr.getAtt()+" us"  +"\r\n";
+     output += "Utilization Factor  = "+rr.getUfactor()+"%"  +"\r\n";
+     output += "Throughput  = "+rr.getThroughput()+" task per us"  +"\r\n";
+     output += "Proportionality  = "+rr.getProp()  +"\r\n";
+     
+     out.setText(output) ; }
     
     else if((algorithmsCombo.getSelectedIndex()==2)) {  
      SJF sjf =new SJF() ;

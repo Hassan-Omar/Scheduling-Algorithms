@@ -43,7 +43,7 @@ public class SJF extends Algorithm {
                    result_list.get(index).setStartTime( result_list.get(index-1).getEndTime());
                   }
                   
-                     System.out.println("end "+  result_list.get(index).getEndTime() +"start"+  result_list.get(index).getStartTime());
+                   //  System.out.println("end "+  result_list.get(index).getEndTime() +"start"+  result_list.get(index).getStartTime());
               }
               
                // end = start + burst
