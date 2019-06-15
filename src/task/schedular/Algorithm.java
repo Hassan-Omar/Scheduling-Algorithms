@@ -1,5 +1,6 @@
 package task.schedular;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -93,10 +94,6 @@ public abstract class Algorithm {
  }
         
  
- 
- public abstract float prop_Calculation (List<Task> tasks);
- 
- 
  //____________________________________________________________________________ 
  // THIS to calculate average Waiting time
  public  float awt_Calculation (List<Task> tasks)
@@ -147,5 +144,27 @@ public abstract class Algorithm {
  
  
  }
-    
+  
+  //____________________________________________________________________________
+  // THIS to calculate average Turn Around time
+   public  float prop_Calculation (List<Task> tasks) 
+   {
+ //prop. is the maximum ratio of the turn around time to the expected running time.
+         // looping to calculate all ratios   
+        float resultRatio = 0; 
+        float [] ratioArr = new float [tasks.size()] ;
+        for(int i=0 ; i<tasks.size() ; i++)
+        {
+        // calculate ratio no i by looping on all process 
+        ratioArr[i]= ((float)tasks.get(i).getTotalATime()) /tasks.get(i).getBurstTime();
+        }
+        // sort to 
+        Arrays.sort(ratioArr);
+        resultRatio = ratioArr[ratioArr.length -1] ; 
+        return  resultRatio; 
+ 
+ 
+ }
+ 
+ 
 }
