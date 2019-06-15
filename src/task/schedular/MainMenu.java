@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package task.schedular;
 
 import java.io.FileInputStream;
@@ -10,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -172,7 +168,10 @@ public class MainMenu extends javax.swing.JFrame {
                             
                           readen_Tasks.add(task_i) ;   
                              // System.out.println("task i "+ task_i.getArrivalTime());
-                        }    
+                             
+                             
+                              } JOptionPane.showMessageDialog(null, "the file opened press Start To Start calculation");
+                          
                         
           
                         
@@ -193,20 +192,21 @@ public class MainMenu extends javax.swing.JFrame {
     if(algorithmsCombo.getSelectedIndex()==0)
     {  
      FCFS fcfs =new FCFS() ;
-     String output = "\r\n " +"Used Algoruthm" +fcfs.getName()  ; 
+     String output ="Used Algoruthm  -->  " +fcfs.getName() +"\r\n\r\n"  ; 
      List<Task> tasks = fcfs.drive(readen_Tasks);
-     output +=  UtileMethods.printer(tasks) ; 
-     output += " Total Average Waiting Time  = "+fcfs.getAwt()+"us" ;
-     output += " Total Average Response Time  = "+fcfs.getArt()+"us" ;
-     output += " Total Average Total Around Time  = "+fcfs.getAtt()+"us" ;
-     output += " Utilization Factor  = "+fcfs.getUfactor()+"%" ;
-     output += " Throughput  = "+fcfs.getThroughput()+"task per us" ;
-     output += " Proportionality  = "+fcfs.getProp()+"us" ;
+     output +=  UtileMethods.printer(tasks) ;
+     output+= "\r\n" +"      ____________________________________       " + "\r\n" ; 
+     output += "\r\n\r\nTotal Average Waiting Time  = "+fcfs.getAwt()+" us"  +"\r\n" ;
+     output += "Total Average Response Time  = "+fcfs.getArt()+" us"  +"\r\n";
+     output += "Total Average Total Around Time  = "+fcfs.getAtt()+" us"  +"\r\n";
+     output += "Utilization Factor  = "+fcfs.getUfactor()+"%"  +"\r\n";
+     output += "Throughput  = "+fcfs.getThroughput()+" task per us"  +"\r\n";
+     output += "Proportionality  = "+fcfs.getProp()  +"\r\n";
      
      out.setText(output) ; 
     }
 
-
+    
         
     }//GEN-LAST:event_startMouseClicked
 
