@@ -25,7 +25,6 @@ public class SJF extends Algorithm {
           // start of TASK(i+1) = end of  TASK(i) 
           for(int index=0; index<tasks.size()+2; index++)
           {   
-              System.out.println(index);
               if(index==0)
               {
                 // first task is the first arrived

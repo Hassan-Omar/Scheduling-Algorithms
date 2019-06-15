@@ -223,6 +223,23 @@ public class MainMenu extends javax.swing.JFrame {
      
      out.setText(output) ; 
     }
+    else if((algorithmsCombo.getSelectedIndex()==1)) 
+    {  }
+    else if((algorithmsCombo.getSelectedIndex()==4)) {  
+     EDF edf =new EDF() ;
+     String output ="Used Algoruthm  -->  " +edf.getName() +"\r\n\r\n"  ; 
+     List<Task> tasks = edf.drive(readen_Tasks);
+     output +=  UtileMethods.printer(tasks) ;
+     output+= "\r\n" +"      ____________________________________       " + "\r\n" ; 
+     output += "\r\n\r\nTotal Average Waiting Time  = "+edf.getAwt()+" us"  +"\r\n" ;
+     output += "Total Average Response Time  = "+edf.getArt()+" us"  +"\r\n";
+     output += "Total Average Total Around Time  = "+edf.getAtt()+" us"  +"\r\n";
+     output += "Utilization Factor  = "+edf.getUfactor()+"%"  +"\r\n";
+     output += "Throughput  = "+edf.getThroughput()+" task per us"  +"\r\n";
+     output += "Proportionality  = "+edf.getProp()  +"\r\n";
+     
+     out.setText(output) ; 
+    }
     
         
     }//GEN-LAST:event_startMouseClicked
