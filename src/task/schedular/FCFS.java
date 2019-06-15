@@ -56,10 +56,9 @@ public class FCFS extends Algorithm {
       
        // start calculation 
        
-      awt= this.awt_Calculation(tasks_Setted); 
-      
-      System.out.println(awt);
-    
+      att= this.att_Calculation(tasks_Setted); 
+      System.out.println(att);
+     
      
    
    }
@@ -79,15 +78,6 @@ public class FCFS extends Algorithm {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public float art_Calculation(List<Task> tasks) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public float att_Calculation(List<Task> tasks) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-        
+  
     
 }
