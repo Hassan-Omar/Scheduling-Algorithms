@@ -39,29 +39,55 @@ public class SRF extends Algorithm {
           // |___A___|__C__|_A_|_B_|____D____|_C_| 
           // start of TASK(i+1) = end of  TASK(i)  
           for(int index=0;index<sum_Burst;index++)
-          {    
+          {   
+              try{ 
               tasks.get(i).setRemainTime(tasks.get(i).getBurstTime());
-              
-              
-            System.out.println("index "+index + " name "+tasks.get(i).getName()+ " arra "+tasks.get(i).getArrivalTime());
-              if(tasks.get(i).getArrivalTime()==index)
+          
+              if(i==0)
               {
-                System.out.println("index "+index + " name "+tasks.get(i).getName());
+                  // first task 
+               result_list.add(UtileMethods.sort_onArrival(tasks).get(0));
+               result_list.get(0).setStartTime( result_list.get(0).getArrivalTime() );
+               result_list.get(0).setFlag(true) ;
+              }
+              
+               
+               
+              if(tasks.get(i).getArrivalTime()==index)
+              { 
                 tasks_Arri.add(tasks.get(i));
-                UtileMethods.sort_onRem(tasks_Arri).get(0).setStartTime(index);
-               // this givs
+                
+               UtileMethods.sort_onRem(tasks_Arri).get(0).setStartTime(index);
                result_list.add(UtileMethods.sort_onRem(tasks_Arri).get(0));
-             
-               if(result_list.get(i).getRemainTime()!=0)
+               
+               
+               if(result_list.get(i).getRemainTime()!=0 && !result_list.get(i).getFlag())
                {
                tasks_Arri.add(result_list.get(i)) ;
+               System.out.println("not removed");
+               result_list.get(i).setFlag(true) ;
                }
-               else tasks_Arri.remove(result_list.get(i));
                
-               i++;
+              
+               System.out.println("a7777777777aaaaaaaa"+result_list.get(i).getRemainTime());
+               if(tasks_Arri!=null)
+               i++;}
+              
+             
+              
+              }catch(Exception e)
+              {
               }
-        //System.out.println("end "+  result_list.get(i).getEndTime() +"start"+  result_list.get(i).getStartTime());
-         
+              
+              result_list.get(i).setEndTime(result_list.get(i).getStartTime() + result_list.get(i).getEndTime()+1);
+              result_list.get(i).setRemainTime(result_list.get(i).getRemainTime()-1);
+                System.out.println("index "+index +"name "+result_list.get(i).getName()+" "+result_list.get(i).getRemainTime()+" h "+ result_list.get(i).getEndTime());
+         if(  result_list.get(i).getRemainTime() ==0)
+                {
+                   tasks_Arri.remove(result_list.get(i));
+                              System.out.println("removed");
+
+               }
           }
           
           
