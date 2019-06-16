@@ -55,8 +55,11 @@ public class RR extends Algorithm {
        
                  //queue.add(tasks_Arri.get(0));
                   }
-            
+           
             result_list.add(queue.poll()) ;
+             if(i!=0)            
+            result_list.get(i).setStartTime(index);
+            
             // end = start + q
             result_list.get(i).setEndTime( result_list.get(i).getStartTime()+q );
             result_list.get(i).setRemainTime(result_list.get(i).getBurstTime()-q);
@@ -65,7 +68,7 @@ public class RR extends Algorithm {
             queue.add(result_list.get(i)) ; 
             }
          
-         // System.out.println("end "+  result_list.get(i).getEndTime() +"start"+  result_list.get(i).getStartTime());
+        System.out.println("task "+  result_list.get(i).getName() +"start"+  result_list.get(i).getStartTime() +"end "+  result_list.get(i).getEndTime() );
          i++;
           }
         List<Task> tasks_Setted =   UtileMethods.setParam(result_list) ;
@@ -92,9 +95,10 @@ public class RR extends Algorithm {
    {
     
      for(int x=0; x<tasks.size(); x++)
-     {   System.out.println("iii q"+x +" " + index);
-     if(tasks.get(x).getArrivalTime() == x)   
-        {
+     {
+      // System.out.println("x "+x +" " + index +"flag  "+tasks.get(x).getFlag() + "  ar   "+tasks.get(x).getArrivalTime());
+     if(tasks.get(x).getArrivalTime() <=index)   
+        { 
         if(!tasks.get(x).getFlag())
         { queue.add(tasks.get(x)) ;
          tasks.get(x).setFlag(true);
