@@ -1,11 +1,8 @@
 package task.schedular;
 import java.util.Collections;
 import java.util.List;
-import static task.schedular.RR.queue;
-/**
- *
- * @author h.omar
- */
+
+
 public class UtileMethods {
     // method to set this param 
     // total response time = start time - arrival time
@@ -116,20 +113,6 @@ public class UtileMethods {
    return tasks ; 
    }
    
-   //==============================================================================
-   //this method gice the taskeswhich arrived at certain time
-   
-   public static void addArrived(List<Task> tasks ,int usedAlgorithm )
-   {
-     if(usedAlgorithm == 0)
-     {
-     for(int i=0; i<tasks.size(); i++)
-        if(tasks.get(i).getArrivalTime() == i && !(tasks.get(i).getFlag()))   
-        {
-         RR.queue.add(tasks.get(i)) ;
-         tasks.get(i).setFlag(true); // this to label the task
-         System.out.println(tasks.get(i).getName());}
-   }  
-   }
+  
  
 }

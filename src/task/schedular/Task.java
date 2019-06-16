@@ -7,7 +7,7 @@ package task.schedular;
 public class Task {
     private int  burstTime,arrivalTime ,startTime ,endTime, deadLine ,remainTime ; 
     private String name ;
-    boolean flag = false ;
+    boolean flag  ;
 
     public boolean getFlag() {
         return flag;
@@ -66,6 +66,7 @@ public class Task {
     }
 
     Task() {
+           this.flag = false;
      }
 
     public int getWaitTime() {

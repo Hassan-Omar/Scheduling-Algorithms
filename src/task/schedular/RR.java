@@ -1,7 +1,9 @@
 package task.schedular;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import javax.swing.JOptionPane;
 
 /**
@@ -9,9 +11,7 @@ import javax.swing.JOptionPane;
  * @author h.omar
  */
 public class RR extends Algorithm {
-      static List<Task> queue = new ArrayList<>() ; 
-   
-    
+    Queue<Task> queue = new LinkedList<>(); 
  int q=1 ; 
     public RR() {
         this.setName("RR");
@@ -43,48 +43,27 @@ public class RR extends Algorithm {
           // start of TASK(i+1) = end of  TASK(i)  
           for(int index=0;index<sum_Burst; index+=q)
           {
+          addArrived(tasks,index);
           if(i==0)
               {
                 // first task is the first arrived
                 // and it's Start Time = arrival time 
                  tasks_Arri.get(0).setStartTime(tasks_Arri.get(0).getArrivalTime());
-                 queue.add(tasks_Arri.get(0));
-                   // remain time = burst - q
-                queue.get(0).setRemainTime( queue.get(0).getBurstTime()-q);
-       
-                 result_list.add(tasks_Arri.get(0)) ;
                   
-                 
-              }
-             UtileMethods.addArrived(tasks, 0);
+                // remain time = burst - q
+            //   tasks_Arri.get(0).setRemainTime( tasks_Arri.get(0).getBurstTime()-q);
        
+                 //queue.add(tasks_Arri.get(0));
+                  }
             
-            if(i>0)
-          {
-            // remain time = burst - q
-          queue.get(0).setRemainTime( queue.get(0).getBurstTime()-q);
-          result_list.add(queue.get(0));
-           System.out.println("rem"+queue.get(0).getRemainTime()); 
-          
-          // check if the task @ end
-           if(queue.get(0).getRemainTime()==0)
-          { 
-          queue.remove(queue.get(0));
-          System.out.println("1st Q deleted iii"+i); 
-          }
-        
-         // roatate the queue
-         queue.add(queue.remove(0));
-         
-        
-         }
-            
-         
-          
-        
-          // end = start + q
+            result_list.add(queue.poll()) ;
+            // end = start + q
             result_list.get(i).setEndTime( result_list.get(i).getStartTime()+q );
-
+            result_list.get(i).setRemainTime(result_list.get(i).getBurstTime()-q);
+            if(result_list.get(i).getRemainTime()!=0) 
+            {
+            queue.add(result_list.get(i)) ; 
+            }
          
          // System.out.println("end "+  result_list.get(i).getEndTime() +"start"+  result_list.get(i).getStartTime());
          i++;
@@ -102,4 +81,34 @@ public class RR extends Algorithm {
       return tasks_Setted ;
   
    } 
+
+
+
+
+ //==============================================================================
+   //this method gice the taskeswhich arrived at certain time
+   
+   public  void addArrived(List<Task> tasks , int index)
+   {
+    
+     for(int x=0; x<tasks.size(); x++)
+     {   System.out.println("iii q"+x +" " + index);
+     if(tasks.get(x).getArrivalTime() == x)   
+        {
+        if(!tasks.get(x).getFlag())
+        { queue.add(tasks.get(x)) ;
+         tasks.get(x).setFlag(true);
+                  System.out.println(tasks.get(x).getName());
+
+        } 
+      
+          } 
+     
+     } 
+     
+     
+    
+   }
+
+
 }
