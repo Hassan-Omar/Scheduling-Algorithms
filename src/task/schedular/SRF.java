@@ -23,71 +23,57 @@ public class SRF extends Algorithm {
       
        List<Task> result_list = new ArrayList<>() ;
        
-       // this comming loop to  
+       // this comming loop to get total burst time & inintilize remain timee
        int sum_Burst = 0 ;
        for(int j=0; j<tasks.size(); j++)
        {
         sum_Burst +=tasks.get(j).getBurstTime();
-       
+        tasks.get(j).setRemainTime(tasks.get(j).getBurstTime());
        }  
        
         tasks = UtileMethods.sort_onArrival(tasks);
        
-          int i =0 ;
+       boolean flag = false ;
        
           // now we need to set start and end time based on SRF
           // |___A___|__C__|_A_|_B_|____D____|_C_| 
           // start of TASK(i+1) = end of  TASK(i)  
-          for(int index=0;index<sum_Burst;index++)
+          for(int i=0;i<sum_Burst;i++)
           {   
-              try{ 
-              tasks.get(i).setRemainTime(tasks.get(i).getBurstTime());
+             try{
+                  // loop in tasks to check which is deliverd 
+              for(int k=0;k<tasks.size();k++)
+               { 
+                   if(tasks.get(k).getArrivalTime()== i )
+                   {   
+                       tasks_Arri.add(tasks.get(k));
+                       flag = true ;
+                        System.out.println("task   "+ tasks_Arri.get(k).getName());
+                   }
+                }
+              
+             }catch(Exception e)
+                     {  e.printStackTrace();
+  
+                     }
+              // calling sorting method which sort based on remaining time
+              // first one means this is the shortst remaining time 
+            Task selectedTask = UtileMethods.sort_onRem(tasks_Arri).get(0);
+            
+            
+             // update remaining time 
+            selectedTask.setRemainTime(selectedTask.getRemainTime() - 1);
+            
+            result_list.add(selectedTask);
+            // delete if the task ended 
+            if(selectedTask.getRemainTime()==0)
+            {tasks_Arri.remove(selectedTask);
+             // update the end time as the method is terminate  
+             selectedTask.setEndTime(i+1);
+             System.out.println("removed  ");
+            }
+         System.out.println("index  "+i+ "task  "+selectedTask.getName()+"start "+selectedTask.getStartTime() +"end " +selectedTask.getEndTime() +" rem "+selectedTask.getRemainTime()+"size"+tasks_Arri.size()); 
           
-              if(i==0)
-              {
-                  // first task 
-               result_list.add(UtileMethods.sort_onArrival(tasks).get(0));
-               result_list.get(0).setStartTime( result_list.get(0).getArrivalTime() );
-               result_list.get(0).setFlag(true) ;
-              }
-              
-               
-               
-              if(tasks.get(i).getArrivalTime()==index)
-              { 
-                tasks_Arri.add(tasks.get(i));
-                
-               UtileMethods.sort_onRem(tasks_Arri).get(0).setStartTime(index);
-               result_list.add(UtileMethods.sort_onRem(tasks_Arri).get(0));
-               
-               
-               if(result_list.get(i).getRemainTime()!=0 && !result_list.get(i).getFlag())
-               {
-               tasks_Arri.add(result_list.get(i)) ;
-               System.out.println("not removed");
-               result_list.get(i).setFlag(true) ;
-               }
-               
-              
-               System.out.println("a7777777777aaaaaaaa"+result_list.get(i).getRemainTime());
-               if(tasks_Arri!=null)
-               i++;}
-              
-             
-              
-              }catch(Exception e)
-              {
-              }
-              
-              result_list.get(i).setEndTime(result_list.get(i).getStartTime() + result_list.get(i).getEndTime()+1);
-              result_list.get(i).setRemainTime(result_list.get(i).getRemainTime()-1);
-                System.out.println("index "+index +"name "+result_list.get(i).getName()+" "+result_list.get(i).getRemainTime()+" h "+ result_list.get(i).getEndTime());
-         if(  result_list.get(i).getRemainTime() ==0)
-                {
-                   tasks_Arri.remove(result_list.get(i));
-                              System.out.println("removed");
-
-               }
           }
           
           

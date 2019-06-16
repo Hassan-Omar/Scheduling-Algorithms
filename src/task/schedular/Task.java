@@ -67,7 +67,7 @@ public class Task {
 
     Task() {
            this.flag = false;
-         
+           this.remainTime=this.burstTime ; 
      }
 
     public int getWaitTime() {
