@@ -7,7 +7,16 @@ package task.schedular;
 public class Task {
     private int  burstTime,arrivalTime ,startTime ,endTime, deadLine ,remainTime ; 
     private String name ;
+    boolean flag = false ;
 
+    public boolean getFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
+    
     public int getRemainTime() {
         return remainTime;
     }

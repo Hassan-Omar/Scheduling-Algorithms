@@ -124,10 +124,12 @@ public class UtileMethods {
      if(usedAlgorithm == 0)
      {
      for(int i=0; i<tasks.size(); i++)
-        if(tasks.get(i).getArrivalTime() == i)   
-           RR.queue.add(tasks.get(i)) ;
-     }   
-   
+        if(tasks.get(i).getArrivalTime() == i && !(tasks.get(i).getFlag()))   
+        {
+         RR.queue.add(tasks.get(i)) ;
+         tasks.get(i).setFlag(true); // this to label the task
+         System.out.println(tasks.get(i).getName());}
+   }  
    }
  
 }

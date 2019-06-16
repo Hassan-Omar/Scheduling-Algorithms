@@ -57,28 +57,20 @@ public class RR extends Algorithm {
                  
               }
              UtileMethods.addArrived(tasks, 0);
-        
-       //System.out.println("rec "); 
-          
-          
-          
-          
-          
-            System.out.println(i);
-        
+       
             
             if(i>0)
           {
             // remain time = burst - q
           queue.get(0).setRemainTime( queue.get(0).getBurstTime()-q);
           result_list.add(queue.get(0));
-          
+           System.out.println("rem"+queue.get(0).getRemainTime()); 
           
           // check if the task @ end
            if(queue.get(0).getRemainTime()==0)
           { 
           queue.remove(queue.get(0));
-          System.out.println("1st Q deleted"); 
+          System.out.println("1st Q deleted iii"+i); 
           }
         
          // roatate the queue
