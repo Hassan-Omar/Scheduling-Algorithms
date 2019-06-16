@@ -24,7 +24,7 @@ public class RR extends Algorithm {
       
        // listing to lists one based on aeeival time ,second based on burst time
        List<Task> tasks_Arri = UtileMethods.sort_onArrival(tasks) ; // this just to know which we will use to start
-       List<Task> queu = new ArrayList<>(); 
+       List<Task> queue = new ArrayList<>(); 
        List<Task> result_list = new ArrayList<>() ;
        
        // this comming loop to 
@@ -34,55 +34,67 @@ public class RR extends Algorithm {
         sum_Burst +=tasks.get(j).getBurstTime();
        
        }
-       
+                     int i =0 ;
+
           // now we need to set start and end time based on RR
           // |_A_|_C_|_A_|_B_|_D_|_A_|_C_|_D_|_A_|_C_|_A_| 
           // start of TASK(i+1) = end of  TASK(i)  
           for(int index=0;index<sum_Burst; index+=q)
           {
-              int i =0 ;
           if(i==0)
               {
                 // first task is the first arrived
                 // and it's Start Time = arrival time 
                  tasks_Arri.get(0).setStartTime(tasks_Arri.get(0).getArrivalTime());
-                 queu.add(tasks_Arri.get(0));
+                 queue.add(tasks_Arri.get(0));
+                   // remain time = burst - q
+                queue.get(0).setRemainTime( queue.get(0).getBurstTime()-q);
+       
                  result_list.add(tasks_Arri.get(0)) ;
                   
                  
               }
-              else 
-              { 
-                 // now we need to move queu(0) to the last
-                 for (int x=0; x<tasks.size(); x++)
-                 {
-                     if(tasks_Arri.get(x).getArrivalTime() < i)
-                     {
-                     // this means it's delevird
-                     queu.add(tasks_Arri.get(x));
-                     }
-                 }
-                  result_list.add(queu.get(0));
-                  
-              } 
+             
+          if(UtileMethods.getArrived(tasks, index)!=null)
+          {
+           // if we are here this means we recived a new task
+           queue.add(UtileMethods.getArrived(tasks, index));
+          
+          }
+          
+          
+          
+          
+          
             System.out.println(i);
-          // remain time = burst - q
-            queu.get(0).setRemainTime( result_list.get(i).getBurstTime()-q);
+        
+            
+            if(i>0)
+          {
+            // remain time = burst - q
+          queue.get(0).setRemainTime( queue.get(0).getBurstTime()-q);
+          result_list.add(queue.get(0));
+          
           
           // check if the task @ end
-          if(queu.get(0).getRemainTime()==0)
-          queu.remove(queu.get(0));
+          if(queue.get(0).getRemainTime()==0)
+          queue.remove(queue.get(0));
+      
+         
+         // roatate the queue
+          queue.add(queue.get(0));
+          queue.remove(0);
+         }
+            
+         
+          
+        
           // end = start + q
             result_list.get(i).setEndTime( result_list.get(i).getStartTime()+q );
 
-          if(i>0)
-          {
-          // roatate the queue
-          queu.add(queu.get(0));
-          queu.remove(0);
-         }
-          System.out.println("end "+  result_list.get(i).getEndTime() +"start"+  result_list.get(i).getStartTime());
-         i++ ;
+         
+         // System.out.println("end "+  result_list.get(i).getEndTime() +"start"+  result_list.get(i).getStartTime());
+         i++;
           }
         List<Task> tasks_Setted =   UtileMethods.setParam(result_list) ;
   

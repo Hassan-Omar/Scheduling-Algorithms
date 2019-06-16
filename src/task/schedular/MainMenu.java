@@ -237,8 +237,21 @@ public class MainMenu extends javax.swing.JFrame {
      
      out.setText(output) ; 
     }
-    else if((algorithmsCombo.getSelectedIndex()==1)) 
-    {  }
+    else if((algorithmsCombo.getSelectedIndex()==3)) 
+    { 
+     SRF srf =new SRF() ;
+     String output ="Used Algorithm  -->  " +srf.getName() +"\r\n\r\n"  ; 
+     List<Task> tasks = srf.drive(readen_Tasks);
+     output +=  UtileMethods.printer(tasks) ;
+     output+= "\r\n" +"      ____________________________________       " + "\r\n" ; 
+     output += "\r\n\r\nTotal Average Waiting Time  = "+srf.getAwt()+" us"  +"\r\n" ;
+     output += "Total Average Response Time  = "+srf.getArt()+" us"  +"\r\n";
+     output += "Total Average Total Around Time  = "+srf.getAtt()+" us"  +"\r\n";
+     output += "Utilization Factor  = "+srf.getUfactor()+"%"  +"\r\n";
+     output += "Throughput  = "+srf.getThroughput()+" task per us"  +"\r\n";
+     output += "Proportionality  = "+srf.getProp()  +"\r\n";
+     
+     out.setText(output) ;  }
     else if((algorithmsCombo.getSelectedIndex()==4)) {  
      EDF edf =new EDF() ;
      String output ="Used Algorithm  -->  " +edf.getName() +"\r\n\r\n"  ; 

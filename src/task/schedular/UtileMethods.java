@@ -114,4 +114,17 @@ public class UtileMethods {
        }
    return tasks ; 
    }
+   
+   //==============================================================================
+   //this method gice the taskeswhich arrived at certain time
+   
+   public static Task getArrived(List<Task> tasks , int time)
+   {
+     for(int i=0; i<tasks.size(); i++)
+        if(tasks.get(i).getArrivalTime() == time)
+         return tasks.get(i) ;
+         
+      return null ; 
+   }
+ 
 }
