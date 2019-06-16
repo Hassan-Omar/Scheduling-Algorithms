@@ -1,6 +1,7 @@
 package task.schedular;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -77,13 +78,16 @@ public class RR extends Algorithm {
           
           
           // check if the task @ end
-          if(queue.get(0).getRemainTime()==0)
+           if(queue.get(0).getRemainTime()==0)
+          { 
           queue.remove(queue.get(0));
-      
-         
+          System.out.println("1st Q deleted"); 
+          }
+        
          // roatate the queue
-          queue.add(queue.get(0));
-          queue.remove(0);
+         queue.add(queue.remove(0));
+         
+        
          }
             
          
