@@ -113,6 +113,26 @@ public class UtileMethods {
    return tasks ; 
    }
    
-  
+    
+//==============================================================================
+   //this method sort the taskes based on remaining time
+   
+   public static List<Task> sort_onRem(List<Task> tasks)
+   {
+     for(int i=0; i<tasks.size(); i++)
+       {
+          for (int k=0; k<tasks.size()-i-1 ; k++)
+          {
+           if(tasks.get(k+1).getRemainTime() < tasks.get(k).getRemainTime())
+           {// sawp task no i , i+1 
+           Collections.swap(tasks, k, k+1);
+           }
+           
+          }
+          
+          
+       }
+   return tasks ; 
+   } 
  
 }

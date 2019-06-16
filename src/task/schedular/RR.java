@@ -28,8 +28,8 @@ public class RR extends Algorithm {
        // listing to lists one based on aeeival time ,second based on burst time
        Task task1_Arri = UtileMethods.sort_onArrival(tasks).get(0) ; // this just to know which we will use to start
        List<Task> result_list = new ArrayList<>() ;
-       List<Task> out = new ArrayList<>();
-       
+       List<Task> out = new ArrayList<>() ;
+
        // this comming loop to 
        int sum_Burst = 0 ;
        
@@ -57,12 +57,14 @@ public class RR extends Algorithm {
            
             result_list.add(queue.poll()) ;
          
-            System.out.println("1   "+result_list.get(i).getName() + "  "+ result_list.get(i).getStartTime());
+           // System.out.println("1   "+result_list.get(i).getName() + "  "+ result_list.get(i).getStartTime());
             try
             {result_list.get(i).setStartTime(index);}
             catch(Exception e)
             {
             }
+           //   System.out.println("2   "+result_list.get(i).getName() + "  "+ result_list.get(i).getStartTime());
+           
             // end = start + q
             result_list.get(i).setEndTime( result_list.get(i).getStartTime()+q );
             result_list.get(i).setRemainTime(result_list.get(i).getRemainTime()-q);
@@ -71,11 +73,9 @@ public class RR extends Algorithm {
             {  
             queue.add(result_list.get(i)) ; 
             }
-                 
-          //out.add(result_list.get(i));
-          
-          
-           //System.out.println(out.get(i).getStartTime());
+                
+           dataCopy(result_list.get(i),out);
+       
           i++;}
           
          
@@ -123,4 +123,16 @@ public class RR extends Algorithm {
    }
 
 
+   void dataCopy(Task t , List<Task> o)
+   {
+    Task temp = new Task() ;
+            temp.setArrivalTime(t.getArrivalTime());
+            temp.setBurstTime(t.getBurstTime());
+            temp.setDeadLine(t.getDeadLine());
+            temp.setName(t.getName());
+            temp.setStartTime(t.getStartTime());
+            temp.setEndTime(t.getEndTime());
+            o.add(temp);
+   }
+   
 }

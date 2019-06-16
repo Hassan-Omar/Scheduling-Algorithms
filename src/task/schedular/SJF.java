@@ -23,7 +23,7 @@ public class SJF extends Algorithm {
           // now we need to set start and end time based on SJF
           // |_B_|__C__|____A____|____D_____| 
           // start of TASK(i+1) = end of  TASK(i) 
-          for(int index=0; index<tasks.size()+2; index++)
+          for(int index=0; index<tasks.size()+4; index++)
           {   
               if(index==0)
               {

@@ -9,14 +9,18 @@ import java.util.List;
  */
 public class SRF extends Algorithm {
 
+    public SRF() {
+        this.name="SRF" ;
+    }
+
 
   //----------------------------------------------------------------------- 
    public List<Task>  drive (List<Task> tasks)
    {
       
        // listing to lists one based on aeeival time ,second based on burst time
-       List<Task> tasks_Arri = UtileMethods.sort_onArrival(tasks) ; // this just to know which we will use to start
-       List<Task> queue = new ArrayList<>() ;
+       List<Task> tasks_Arri = new ArrayList<>() ; // this just to know which we will use to start
+      
        List<Task> result_list = new ArrayList<>() ;
        
        // this comming loop to  
@@ -25,46 +29,38 @@ public class SRF extends Algorithm {
        {
         sum_Burst +=tasks.get(j).getBurstTime();
        
-       }
+       }  
+       
+        tasks = UtileMethods.sort_onArrival(tasks);
+       
+          int i =0 ;
        
           // now we need to set start and end time based on SRF
           // |___A___|__C__|_A_|_B_|____D____|_C_| 
           // start of TASK(i+1) = end of  TASK(i)  
           for(int index=0;index<sum_Burst;index++)
-          {   // count tasks ;
-              int i =0 ;
+          {    
+              tasks.get(i).setRemainTime(tasks.get(i).getBurstTime());
               
-              if(i==0)
+              
+            System.out.println("index "+index + " name "+tasks.get(i).getName()+ " arra "+tasks.get(i).getArrivalTime());
+              if(tasks.get(i).getArrivalTime()==index)
               {
-                // first task is the first arrived
-                // and it's Start Time = arrival time 
-                 tasks_Arri.get(0).setStartTime(tasks_Arri.get(0).getArrivalTime());
-                 tasks_Arri.get(0).setRemainTime( tasks_Arri.get(0).getBurstTime());
-                 queue.add(tasks_Arri.get(0)) ;
-                 result_list.add(queue.get(0)) ;
+                System.out.println("index "+index + " name "+tasks.get(i).getName());
+                tasks_Arri.add(tasks.get(i));
+                UtileMethods.sort_onRem(tasks_Arri).get(0).setStartTime(index);
+               // this givs
+               result_list.add(UtileMethods.sort_onRem(tasks_Arri).get(0));
+             
+               if(result_list.get(i).getRemainTime()!=0)
+               {
+               tasks_Arri.add(result_list.get(i)) ;
+               }
+               else tasks_Arri.remove(result_list.get(i));
+               
+               i++;
               }
-            
-            // if(UtileMethods.getArrived(tasks, i)!=null) 
-             {
-             // if(UtileMethods.getArrived(tasks, i).getBurstTime()<result_list.get(i).getRemainTime())
-              queue.add(tasks.get(i)) ;
-              queue.get(0).setStartTime(index);
-              result_list.add(queue.get(0)) ;
-              
-            i++ ;  
-             }
-             
-             if(queue.get(0).getRemainTime()==0)
-                 queue.remove(0);
-             
-             
-             queue.get(0).setRemainTime(queue.get(0).getRemainTime() - 1);
-             
-              
- 
-           // end time = start + busy = start + burst - remaining = end of privous + burst - remaining    
- result_list.get(i).setEndTime(result_list.get(i-1).getEndTime()+ ( result_list.get(i-1).getBurstTime()- result_list.get(i-1).getRemainTime()));   
-          System.out.println("end "+  result_list.get(i).getEndTime() +"start"+  result_list.get(i).getStartTime());
+        //System.out.println("end "+  result_list.get(i).getEndTime() +"start"+  result_list.get(i).getStartTime());
          
           }
           
