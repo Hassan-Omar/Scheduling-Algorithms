@@ -1,7 +1,6 @@
 package task.schedular;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -10,6 +9,9 @@ import javax.swing.JOptionPane;
  * @author h.omar
  */
 public class RR extends Algorithm {
+      static List<Task> queue = new ArrayList<>() ; 
+   
+    
  int q=1 ; 
     public RR() {
         this.setName("RR");
@@ -25,7 +27,6 @@ public class RR extends Algorithm {
       
        // listing to lists one based on aeeival time ,second based on burst time
        List<Task> tasks_Arri = UtileMethods.sort_onArrival(tasks) ; // this just to know which we will use to start
-       List<Task> queue = new ArrayList<>(); 
        List<Task> result_list = new ArrayList<>() ;
        
        // this comming loop to 
@@ -55,13 +56,9 @@ public class RR extends Algorithm {
                   
                  
               }
-             
-          if(UtileMethods.getArrived(tasks, index)!=null)
-          {
-           // if we are here this means we recived a new task
-           queue.add(UtileMethods.getArrived(tasks, index));
-          
-          }
+             UtileMethods.addArrived(tasks, 0);
+        
+       //System.out.println("rec "); 
           
           
           

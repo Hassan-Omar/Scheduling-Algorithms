@@ -1,6 +1,7 @@
 package task.schedular;
 import java.util.Collections;
 import java.util.List;
+import static task.schedular.RR.queue;
 /**
  *
  * @author h.omar
@@ -118,13 +119,15 @@ public class UtileMethods {
    //==============================================================================
    //this method gice the taskeswhich arrived at certain time
    
-   public static Task getArrived(List<Task> tasks , int time)
+   public static void addArrived(List<Task> tasks ,int usedAlgorithm )
    {
+     if(usedAlgorithm == 0)
+     {
      for(int i=0; i<tasks.size(); i++)
-        if(tasks.get(i).getArrivalTime() == time)
-         return tasks.get(i) ;
-         
-      return null ; 
+        if(tasks.get(i).getArrivalTime() == i)   
+           RR.queue.add(tasks.get(i)) ;
+     }   
+   
    }
  
 }

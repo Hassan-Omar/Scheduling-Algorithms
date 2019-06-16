@@ -44,9 +44,9 @@ public class SRF extends Algorithm {
                  result_list.add(queue.get(0)) ;
               }
             
-             if(UtileMethods.getArrived(tasks, i)!=null) 
+            // if(UtileMethods.getArrived(tasks, i)!=null) 
              {
-              if(UtileMethods.getArrived(tasks, i).getBurstTime()<result_list.get(i).getRemainTime())
+             // if(UtileMethods.getArrived(tasks, i).getBurstTime()<result_list.get(i).getRemainTime())
               queue.add(tasks.get(i)) ;
               queue.get(0).setStartTime(index);
               result_list.add(queue.get(0)) ;
