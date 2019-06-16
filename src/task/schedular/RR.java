@@ -26,8 +26,9 @@ public class RR extends Algorithm {
    {
       
        // listing to lists one based on aeeival time ,second based on burst time
-       List<Task> tasks_Arri = UtileMethods.sort_onArrival(tasks) ; // this just to know which we will use to start
+       Task task1_Arri = UtileMethods.sort_onArrival(tasks).get(0) ; // this just to know which we will use to start
        List<Task> result_list = new ArrayList<>() ;
+       List<Task> out = new ArrayList<>();
        
        // this comming loop to 
        int sum_Burst = 0 ;
@@ -51,24 +52,35 @@ public class RR extends Algorithm {
               {
                 // first task is the first arrived
                 // and it's Start Time = arrival time 
-                 tasks_Arri.get(0).setStartTime(tasks_Arri.get(0).getArrivalTime());
+                 task1_Arri.setStartTime(task1_Arri.getArrivalTime());
                }
            
             result_list.add(queue.poll()) ;
-            if(i==1)
-            {result_list.get(i).setStartTime( result_list.get(i-1).getEndTime());}
+         
+            System.out.println("1   "+result_list.get(i).getName() + "  "+ result_list.get(i).getStartTime());
+            try
+            {result_list.get(i).setStartTime(index);}
+            catch(Exception e)
+            {
+            }
             // end = start + q
             result_list.get(i).setEndTime( result_list.get(i).getStartTime()+q );
             result_list.get(i).setRemainTime(result_list.get(i).getRemainTime()-q);
+            
             if(result_list.get(i).getRemainTime()!=0) 
             {  
             queue.add(result_list.get(i)) ; 
             }
+                 
+          //out.add(result_list.get(i));
+          
+          
+           //System.out.println(out.get(i).getStartTime());
+          i++;}
+          
          
-       // System.out.println("task "+  result_list.get(i).getName() +" rem   "+ result_list.get(i).getRemainTime() +"start"+  result_list.get(i).getStartTime() +"end "+  result_list.get(i).getEndTime() );
-         i++;
-          }
-        List<Task> tasks_Setted =   UtileMethods.setParam(result_list) ;
+        
+        List<Task> tasks_Setted =   UtileMethods.setParam(out) ;
   
         // start calculation using the parent methods 
         this.art = this.art_Calculation(tasks_Setted);   
