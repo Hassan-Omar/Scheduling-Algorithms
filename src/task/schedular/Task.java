@@ -67,6 +67,7 @@ public class Task {
 
     Task() {
            this.flag = false;
+         
      }
 
     public int getWaitTime() {
