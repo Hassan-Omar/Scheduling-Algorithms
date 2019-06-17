@@ -119,8 +119,8 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(start, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 643, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(95, 95, 95)
@@ -134,7 +134,11 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void openMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_openMouseClicked
-         //Choose XLS FILE
+         int end ; 
+        String s = JOptionPane.showInputDialog("Enter number of process you need to reas it ");
+         end =(int)Float.parseFloat(s) ;
+
+//Choose XLS FILE
         JFileChooser Chooser = new JFileChooser();
         int Variable = Chooser.showOpenDialog(null);
     
@@ -142,14 +146,14 @@ public class MainMenu extends javax.swing.JFrame {
               if (Variable == JFileChooser.APPROVE_OPTION) 
                 {                     
 
-                    try {
+                    try { 
                         
                         // create work sheet 
                         HSSFWorkbook lta = new HSSFWorkbook(new FileInputStream(Chooser.getSelectedFile()));
                         HSSFSheet Sheet = lta.getSheet("Sheet0");
                        
                         // neasted loop to read the data
-                        for(int i=1; i<4 ;i++)
+                        for(int i=1; i<end+1; i++)
 
                         {
                             if( readen_Tasks ==null)

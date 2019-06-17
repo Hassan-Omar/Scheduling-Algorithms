@@ -23,7 +23,7 @@ public class RR extends Algorithm {
 
   //----------------------------------------------------------------------- 
    public List<Task>  drive (List<Task> tasks)
-   {
+   {  boolean flag =false ;
       
        // listing to lists one based on aeeival time ,second based on burst time
        Task task1_Arri = UtileMethods.sort_onArrival(tasks).get(0) ; // this just to know which we will use to start
@@ -59,15 +59,33 @@ public class RR extends Algorithm {
          
            // System.out.println("1   "+result_list.get(i).getName() + "  "+ result_list.get(i).getStartTime());
             try
-            {result_list.get(i).setStartTime(index);}
+            { 
+             if(flag)
+            {result_list.get(i).setStartTime(result_list.get(i-1).getEndTime());
+            flag= false ; 
+            }
+             else result_list.get(i).setStartTime(index);
+             
+            
+            }
             catch(Exception e)
             {
             }
            //   System.out.println("2   "+result_list.get(i).getName() + "  "+ result_list.get(i).getStartTime());
            
-            // end = start + q
-            result_list.get(i).setEndTime( result_list.get(i).getStartTime()+q );
+            // update remaining
             result_list.get(i).setRemainTime(result_list.get(i).getRemainTime()-q);
+            if( result_list.get(i).getRemainTime()>0)
+            {// end = start + q
+            result_list.get(i).setEndTime( result_list.get(i).getStartTime()+q );
+            }
+            else 
+            {  result_list.get(i).setEndTime( result_list.get(i).getStartTime()+q+result_list.get(i).getRemainTime());
+               flag =true ; 
+               
+            }   
+            System.out.println("task"+result_list.get(i).getName() + " rem "+result_list.get(i).getRemainTime());
+            
             
             if(result_list.get(i).getRemainTime()!=0) 
             {  
@@ -136,3 +154,4 @@ public class RR extends Algorithm {
    }
    
 }
+    
