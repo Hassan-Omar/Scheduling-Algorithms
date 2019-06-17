@@ -74,12 +74,14 @@ public abstract class Algorithm {
 // throuput  = busy time / cpu_total time 
 //           = sum(burst time) / (end time of the last task) 
      int sum = 0 ; 
+     // loop to calculate the total burst time except idle 
      for (int i=0; i<tasks.size(); i++) 
-     {
+     { 
+      if(!tasks.get(i).getName().equals("idle"))
       sum+=tasks.get(i).getBurstTime(); 
      }
      
-  int n = tasks.size();
+     int n = tasks.size();
      return (100*(float)sum /(tasks.get(n-1).getEndTime()) ); 
  }
       

@@ -44,10 +44,26 @@ public class UtileMethods {
            result += tasks.get(i).getEndTime()+ "             " ; 
            result += ( tasks.get(i).getEndTime()-tasks.get(i).getStartTime() ) + "            " ; 
            // WHAT IS THE STATUS 
-           result+="\r\n" ; 
+           result+="\r\n\r\n" ;
+     
+           
        }
-        
-        
+        result+= "\r\n" +"      ____________________________________       " + "\r\n\r\n\r\nGantt Chart \r\n" ; 
+        // drawing the gantt chart 
+       for(int k=0; k<tasks.size(); k++)
+       { String temp= ""; 
+         result+="|";
+         int busy = tasks.get(k).getEndTime()- tasks.get(k).getStartTime() ;
+         for(int j=0; j<(busy/2) ;j++)
+         {
+           temp+="_";
+         }
+         
+         result +=temp+tasks.get(k).getName()+temp;
+         
+      
+       }
+         result+="|\r\n\r\n" ;
         
     return result ;
     
@@ -132,6 +148,35 @@ public class UtileMethods {
           
           
        }
+   return tasks ; 
+   } 
+   
+   //==============================================================================
+   //this method to inseryt idle task in this list 
+   
+   public static List<Task> insert_ilde(List<Task> tasks)
+   {
+        int start_i = 0 , end =0; 
+     for(int i=1; i<tasks.size(); i++)
+       {
+           start_i = tasks.get(i).getStartTime();
+           end = tasks.get(i-1).getEndTime();
+            // if statrt(i) == end(i-1) there are no problem
+           if( !(start_i==end) )
+           {   // create idle sarted and arrived @ end , ends @ start_i 
+               Task idle = new Task() ; 
+               idle.setEndTime(start_i);
+               // idle.arrived  as same as idle.start 
+               idle.setArrivalTime(end);
+               idle.setStartTime(end);
+                // burst = end - start
+              idle.setBurstTime(start_i - end);
+              idle.setName("idel");
+              // large number as we don't need to carry this 
+              idle.setDeadLine(999999999); 
+         }
+
+                 }
    return tasks ; 
    } 
  
