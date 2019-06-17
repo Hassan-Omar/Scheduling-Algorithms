@@ -171,12 +171,14 @@ public class UtileMethods {
                idle.setStartTime(end);
                 // burst = end - start
               idle.setBurstTime(start_i - end);
-              idle.setName("idel");
+              idle.setName("!");
               // large number as we don't need to carry this 
               idle.setDeadLine(999999999); 
+            tasks.add(i, idle);
          }
 
                  }
+     
    return tasks ; 
    } 
  

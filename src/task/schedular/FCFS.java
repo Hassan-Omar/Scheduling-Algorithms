@@ -27,14 +27,22 @@ public class FCFS extends Algorithm {
           // start of c = end of A
           for(int index=0; index<tasks.size(); index++)
           {   
-              
-              if(index==0)
-                  tasks.get(0).setStartTime(tasks.get(0).getArrivalTime());
+              // check if the previous task is ended ----> it's end time <= the arrivale time of the recived  
+              if(index > 0)
+              {
+                if( tasks.get(index).getArrivalTime()>=tasks.get(index-1).getEndTime())
+                  tasks.get(index).setStartTime(tasks.get(index).getArrivalTime());
               else 
                   tasks.get(index).setStartTime(tasks.get(index-1).getEndTime());
               
+              }
+              else
+              {   // this is the first task 
+                  // which make sense we will start counting time when we recive it 
+                  tasks.get(0).setStartTime(tasks.get(0).getArrivalTime());
+              }
               
-              
+               // end time = start + burst  // make sense as the task is non_preemptive
                tasks.get(index).setEndTime( tasks.get(index).getStartTime()+ tasks.get(index).getBurstTime());
           }
           
@@ -45,16 +53,16 @@ public class FCFS extends Algorithm {
         
   
         // start calculation using the parent methods 
-        this.art = this.art_Calculation(tasks_Setted);   
-        this.att = this.att_Calculation(tasks_Setted);  
-        this.awt = this.awt_Calculation(tasks_Setted); 
+        this.art = this.art_Calculation(tasks_Setted_idle);   
+        this.att = this.att_Calculation(tasks_Setted_idle);  
+        this.awt = this.awt_Calculation(tasks_Setted_idle); 
         // ufactor should be calculated for tasks_Setted_idle as idle affects on total time  
         this.ufactor = this.ufactor_Calculation(tasks_Setted_idle); 
         // throughput should be calculated for recived tasks 
-        this.throughput = this.throughput_Calculation(tasks_Setted); 
+        this.throughput = this.throughput_Calculation(tasks_Setted_idle); 
         this.prop = this.prop_Calculation(tasks_Setted); 
       
-      return tasks_Setted ;
+      return tasks_Setted_idle ;
    
    }
 

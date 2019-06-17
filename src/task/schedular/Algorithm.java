@@ -77,8 +77,8 @@ public abstract class Algorithm {
      // loop to calculate the total burst time except idle 
      for (int i=0; i<tasks.size(); i++) 
      { 
-      if(!tasks.get(i).getName().equals("idle"))
-      sum+=tasks.get(i).getBurstTime(); 
+      if(!(tasks.get(i).getName().contains("!")))
+      { sum+=tasks.get(i).getBurstTime();}
      }
      
      int n = tasks.size();
@@ -87,28 +87,36 @@ public abstract class Algorithm {
       
 //__________________________________________________________________
   // THIS to calculate Throughput
- public  float throughput_Calculation (List<Task> tasks)
+ public  float throughput_Calculation (List<Task> tasks )
  {
   // throuput  = num of task / cpu_total time 
   //           = n / (end time of the last task)   
-  int n = tasks.size();
-     return ( (float)n /(tasks.get(n-1).getEndTime()) ); 
+  int n =0;
+    for(int i=0; i<tasks.size(); i++)
+    { // counting size without idle    
+      if(!(tasks.get(i).getName().contains("!")))
+      {n++;}
+    }
+     
+     return ( (float)n /(tasks.get(tasks.size()-1).getEndTime()) ); 
  }
         
  
  //____________________________________________________________________________ 
  // THIS to calculate average Waiting time
- public  float awt_Calculation (List<Task> tasks)
+ public  float awt_Calculation (List<Task> tasks )
  {
- 
+        int n = 0 ;
         int totalWaitingTime = 0 ;
         for(int i=0 ; i<tasks.size() ; i++)
         {
         // calculate total time by looping on all process 
-        totalWaitingTime += tasks.get(i).getWaitTime();
+        if(!(tasks.get(i).getName().contains("!")))
+        {totalWaitingTime += tasks.get(i).getWaitTime(); n++; }
         }
         // average waiting time  = total time / num of tasks 
-        float avWT =(float)totalWaitingTime/tasks.size() ; 
+        float avWT =(float)totalWaitingTime/n; 
+        
         return  avWT; 
  
  
@@ -118,14 +126,16 @@ public abstract class Algorithm {
  public  float art_Calculation (List<Task> tasks)
   {
  
-        int totalResponseTime = 0 ;
+        int totalResponseTime = 0 ,n=0;
         for(int i=0 ; i<tasks.size() ; i++)
         {
         // calculate total time by looping on all process 
-        totalResponseTime += tasks.get(i).getResponseTime();
+         if(!(tasks.get(i).getName().contains("!")))
+      { 
+        totalResponseTime += tasks.get(i).getResponseTime(); n++;}
         }
         // average waiting time  = total time / num of tasks 
-        float avRT =(float)totalResponseTime/tasks.size() ; 
+        float avRT =(float)totalResponseTime/n ; 
         return  avRT; 
  
  
@@ -134,14 +144,17 @@ public abstract class Algorithm {
   // THIS to calculate average Turn Around time
  public  float att_Calculation (List<Task> tasks) {
  
-        int totalTurnTime = 0 ;
+        int totalTurnTime = 0 ,n=0;
         for(int i=0 ; i<tasks.size() ; i++)
         {
-        // calculate total time by looping on all process 
-        totalTurnTime += tasks.get(i).getTotalATime();
+        // calculate total time by looping on all process
+             if(!(tasks.get(i).getName().contains("!")))
+      { totalTurnTime += tasks.get(i).getTotalATime();
+       n++;
+      }
         }
         // average waiting time  = total time / num of tasks 
-        float avTT =(float)totalTurnTime/tasks.size() ; 
+        float avTT =(float)totalTurnTime/n ; 
         return  avTT; 
  
  

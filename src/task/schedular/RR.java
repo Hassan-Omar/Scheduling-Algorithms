@@ -101,12 +101,12 @@ public class RR extends Algorithm {
         List<Task> tasks_Setted =   UtileMethods.setParam(out) ;
   
         // start calculation using the parent methods 
-        this.art = this.art_Calculation(tasks_Setted);   
-        this.att = this.att_Calculation(tasks_Setted);  
-        this.awt = this.awt_Calculation(tasks_Setted); 
-        this.ufactor = this.ufactor_Calculation(tasks_Setted); 
-        this.throughput = this.throughput_Calculation(tasks_Setted); 
-        this.prop = this.prop_Calculation(tasks_Setted); 
+       // this.art = this.art_Calculation(tasks_Setted);   
+      //  this.att = this.att_Calculation(tasks_Setted);  
+      //  this.awt = this.awt_Calculation(tasks_Setted); 
+       // this.ufactor = this.ufactor_Calculation(tasks_Setted); 
+      //  this.throughput = this.throughput_Calculation(tasks_Setted); 
+       // this.prop = this.prop_Calculation(tasks_Setted); 
       
       return tasks_Setted ;
   
