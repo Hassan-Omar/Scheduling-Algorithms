@@ -12,49 +12,102 @@ public class SJF extends Algorithm {
     public SJF() {
         this.setName("SJF") ;
     }
-     //----------------------------------------------------------------------- 
+     
+   //----------------------------------------------------------------------- 
    public List<Task>  drive (List<Task> tasks)
    {
+         
        // listing to lists one based on aeeival time ,second based on burst time
-       List<Task> tasks_Arri = UtileMethods.sort_onArrival(tasks) ; // this just to know which we will use to start
-       List<Task> queue = UtileMethods.sort_onBurst(tasks) ; 
+       List<Task> tasks_Arri = new ArrayList<>() ; // this just to know which we will use to start
+      
        List<Task> result_list = new ArrayList<>() ;
-       
-          // now we need to set start and end time based on SJF
-          // |_B_|__C__|____A____|____D_____| 
+       // now we need to set start and end time based on EDF
+          // |__C__|____A____|____D_____|_B_| 
           // start of TASK(i+1) = end of  TASK(i) 
-          for(int index=0; index<tasks.size()+4; index++)
+       // this comming loop to get total burst time & inintilize remain timee
+       int sum_Burst = 0 ;
+       for(int j=0; j<tasks.size(); j++)
+       {
+        sum_Burst +=tasks.get(j).getBurstTime();
+        tasks.get(j).setRemainTime(tasks.get(j).getBurstTime());
+       }  
+       
+        tasks = UtileMethods.sort_onArrival(tasks);
+ 
+       boolean flag = true ;
+          
+          for(int i=0; i<sum_Burst; i++)
           {   
-              if(index==0)
-              {
-                // first task is the first arrived
-                // and it's Start Time = arrival time 
-                 tasks_Arri.get(0).setStartTime(tasks_Arri.get(0).getArrivalTime());
-                 result_list.add(tasks_Arri.get(0)) ;
-                 queue.remove(tasks_Arri.get(0));
-               
-              }
-              else 
-              {  
-                   // check of the first task in queue 
-                  if(queue.get(0).getArrivalTime() < result_list.get(index-1).getEndTime() )
-                  {result_list.add(queue.get(0)) ;
-                   queue.remove(queue.get(0));
-                   result_list.get(index).setStartTime( result_list.get(index-1).getEndTime());
-                  }
-                  
-                   //  System.out.println("end "+  result_list.get(index).getEndTime() +"start"+  result_list.get(index).getStartTime());
-              }
+             
               
-               // end = start + burst
-               result_list.get(index).setEndTime( result_list.get(index).getStartTime()+ result_list.get(index).getBurstTime());
-     
+             try{
+                  // loop in tasks to check which is deliverd 
+              for(int k=0;k<tasks.size();k++)
+               { 
+                   if(tasks.get(k).getArrivalTime()== i )
+                   {   
+                       tasks_Arri.add(tasks.get(k));
+                      //System.out.print("Task Recived = "+tasks.get(k).getName());
+                   }
+                }
+              
+             }catch(Exception e)
+                     {  e.printStackTrace();
+  
+                     }
+             
+       
+             
+            Task selectedTask = new Task() ;
+            // calling sorting method which sort based on remaining time
+            // first one means this is the shortst deadline time but if we have only one task we don't need to sort  
+            
+          
+            if(tasks_Arri.size()==1) 
+                  selectedTask  =tasks_Arri.get(0); 
+             else if(tasks_Arri!=null)
+             {   // if we don't use comming part this will be look like preemptive SJF --> SRT 
+              if (UtileMethods.sort_onDeadline(tasks_Arri).get(0).getBurstTime()< result_list.get(result_list.size()-1).getBurstTime()&& !result_list.get(result_list.size()-1).getFlag())
+                selectedTask = result_list.get(result_list.size()-1);
+               else 
+                selectedTask = UtileMethods.sort_onBurst(tasks_Arri).get(0);
+   
+             }
+           
+            // update remaining time 
+            selectedTask.setRemainTime(selectedTask.getRemainTime() - 1);
+            if(flag)
+            {   
+                result_list.add(selectedTask);
+                selectedTask.setStartTime(i);
+                System.out.println("added"+selectedTask.getName());
+             flag=false ; 
+            }
+
+            // delete if the task ended 
+            if(selectedTask.getRemainTime()==0)
+            {tasks_Arri.remove(selectedTask);
+             // update the end time as the method is terminate  
+             selectedTask.setEndTime(i+1);
+             
+             flag = true ;
+             result_list.get(result_list.size()-1).setFlag(true);
+            }
+
+            
+  System.out.println("index  "+i+ "task  "+selectedTask.getName()+"start "+selectedTask.getStartTime() +"end " +selectedTask.getEndTime() +" rem "+selectedTask.getRemainTime() ); 
+         
+        
           }
+           
+          
+          
           
           
         List<Task> tasks_Setted =   UtileMethods.setParam(result_list) ;
         // add idle tasks 
-        List<Task> tasks_Setted_idle  = UtileMethods.insert_ilde(tasks_Setted) ;
+     //   List<Task> tasks_Setted_idle  = UtileMethods.insert_ilde(tasks_Setted) ;
+       List<Task> tasks_Setted_idle  =tasks_Setted;
         
   
         // start calculation using the parent methods 
@@ -68,8 +121,9 @@ public class SJF extends Algorithm {
         this.prop = this.prop_Calculation(tasks_Setted); 
       
       return tasks_Setted_idle ;
-   
    }
 
     
+
+ 
 }

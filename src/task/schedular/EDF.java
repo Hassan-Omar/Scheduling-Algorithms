@@ -36,7 +36,7 @@ public class EDF extends Algorithm {
        }  
        
         tasks = UtileMethods.sort_onArrival(tasks);
-       float [] rems = new float [sum_Burst];
+ 
        boolean flag = true ;
           
           for(int i=0; i<sum_Burst; i++)
@@ -65,7 +65,7 @@ public class EDF extends Algorithm {
             // calling sorting method which sort based on remaining time
             // first one means this is the shortst deadline time but if we have only one task we don't need to sort  
             
-            rems[i]=selectedTask.getRemainTime();
+          
             if(tasks_Arri.size()==1) 
                   selectedTask  =tasks_Arri.get(0); 
              else if(tasks_Arri!=null)
@@ -98,7 +98,7 @@ public class EDF extends Algorithm {
             }
 
             
-         System.out.println("index  "+i+ "task  "+selectedTask.getName()+"start "+selectedTask.getStartTime() +"end " +selectedTask.getEndTime() +" rem "+selectedTask.getRemainTime()+"size"+tasks_Arri.size()); 
+         //System.out.println("index  "+i+ "task  "+selectedTask.getName()+"start "+selectedTask.getStartTime() +"end " +selectedTask.getEndTime() +" rem "+selectedTask.getRemainTime()+"size"+tasks_Arri.size()); 
          
         
           }
