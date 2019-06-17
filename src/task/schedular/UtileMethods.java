@@ -1,4 +1,5 @@
 package task.schedular;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -84,9 +85,14 @@ public class UtileMethods {
            }
            
           }
-          
-          
+
        }
+     
+     if(tasks!=null)
+     {
+       tasks.get(0).setStartTime(tasks.get(0).getArrivalTime());
+     }
+     
    return tasks ; 
    }
 //==============================================================================
@@ -124,8 +130,9 @@ public class UtileMethods {
            }
            
           }
-          
+         
        }
+    
    return tasks ; 
    }
    
@@ -182,4 +189,32 @@ public class UtileMethods {
    return tasks ; 
    } 
  
+    //==============================================================================
+   //this method to inseryt idle task in this list 
+   
+   public static List<Task> getDelivered(List<Task> tasks , int time )
+   {
+       List<Task> tasks_Arri = new ArrayList<>() ; 
+   try{
+                  // loop in tasks to check which is deliverd 
+              for(int k=0;k<tasks.size();k++)
+               { 
+                   if(tasks.get(k).getArrivalTime()== time )
+                   {   
+                       tasks_Arri.add(tasks.get(k));
+                      System.out.println("Task Recived = "+tasks.get(k).getName());
+                   }
+                }
+              
+             }catch(Exception e)
+                     {  e.printStackTrace();
+  
+                     }
+   return tasks_Arri ; 
+}
+   
+
+
+
+
 }

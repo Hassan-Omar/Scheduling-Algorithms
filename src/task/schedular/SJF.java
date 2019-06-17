@@ -17,7 +17,7 @@ public class SJF extends Algorithm {
    {
        // listing to lists one based on aeeival time ,second based on burst time
        List<Task> tasks_Arri = UtileMethods.sort_onArrival(tasks) ; // this just to know which we will use to start
-       List<Task> queu = UtileMethods.sort_onBurst(tasks) ; 
+       List<Task> queue = UtileMethods.sort_onBurst(tasks) ; 
        List<Task> result_list = new ArrayList<>() ;
        
           // now we need to set start and end time based on SJF
@@ -31,15 +31,15 @@ public class SJF extends Algorithm {
                 // and it's Start Time = arrival time 
                  tasks_Arri.get(0).setStartTime(tasks_Arri.get(0).getArrivalTime());
                  result_list.add(tasks_Arri.get(0)) ;
-                 queu.remove(tasks_Arri.get(0));
+                 queue.remove(tasks_Arri.get(0));
                
               }
               else 
               {  
                    // check of the first task in queue 
-                  if(queu.get(0).getArrivalTime() < result_list.get(index-1).getEndTime() )
-                  {result_list.add(queu.get(0)) ;
-                   queu.remove(queu.get(0));
+                  if(queue.get(0).getArrivalTime() < result_list.get(index-1).getEndTime() )
+                  {result_list.add(queue.get(0)) ;
+                   queue.remove(queue.get(0));
                    result_list.get(index).setStartTime( result_list.get(index-1).getEndTime());
                   }
                   
@@ -53,16 +53,21 @@ public class SJF extends Algorithm {
           
           
         List<Task> tasks_Setted =   UtileMethods.setParam(result_list) ;
+        // add idle tasks 
+        List<Task> tasks_Setted_idle  = UtileMethods.insert_ilde(tasks_Setted) ;
+        
   
         // start calculation using the parent methods 
-       // this.art = this.art_Calculation(tasks_Setted);   
-       // this.att = this.att_Calculation(tasks_Setted);  
-       // this.awt = this.awt_Calculation(tasks_Setted); 
-        //this.ufactor = this.ufactor_Calculation(tasks_Setted); 
-       // this.throughput = this.throughput_Calculation(tasks_Setted); 
-       // this.prop = this.prop_Calculation(tasks_Setted); 
+        this.art = this.art_Calculation(tasks_Setted_idle);   
+        this.att = this.att_Calculation(tasks_Setted_idle);  
+        this.awt = this.awt_Calculation(tasks_Setted_idle); 
+        // ufactor should be calculated for tasks_Setted_idle as idle affects on total time  
+        this.ufactor = this.ufactor_Calculation(tasks_Setted_idle); 
+        // throughput should be calculated for recived tasks 
+        this.throughput = this.throughput_Calculation(tasks_Setted_idle); 
+        this.prop = this.prop_Calculation(tasks_Setted); 
       
-      return tasks_Setted ;
+      return tasks_Setted_idle ;
    
    }
 
