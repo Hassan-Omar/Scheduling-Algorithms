@@ -33,7 +33,7 @@ public class SRF extends Algorithm {
        
         tasks = UtileMethods.sort_onArrival(tasks);
        
-       boolean flag = false ;
+       boolean flag = true ;
        
           // now we need to set start and end time based on SRF
           // |___A___|__C__|_A_|_B_|____D____|_C_| 
@@ -47,7 +47,7 @@ public class SRF extends Algorithm {
                    if(tasks.get(k).getArrivalTime()== i )
                    {   
                        tasks_Arri.add(tasks.get(k));
-                       flag = true ;
+                     
                         System.out.println("task   "+ tasks_Arri.get(k).getName());
                    }
                 }
@@ -60,17 +60,23 @@ public class SRF extends Algorithm {
               // first one means this is the shortst remaining time 
             Task selectedTask = UtileMethods.sort_onRem(tasks_Arri).get(0);
             
-            
+             int busyTime = selectedTask.getBurstTime()-selectedTask.getRemainTime();
              // update remaining time 
             selectedTask.setRemainTime(selectedTask.getRemainTime() - 1);
-            
-            result_list.add(selectedTask);
+            if(flag)
+            {result_list.add(selectedTask);
+             flag=false ; 
+            }
+
             // delete if the task ended 
             if(selectedTask.getRemainTime()==0)
             {tasks_Arri.remove(selectedTask);
              // update the end time as the method is terminate  
              selectedTask.setEndTime(i+1);
-             System.out.println("removed  ");
+             
+             selectedTask.setStartTime(i-busyTime);
+             
+            flag = true ;
             }
          System.out.println("index  "+i+ "task  "+selectedTask.getName()+"start "+selectedTask.getStartTime() +"end " +selectedTask.getEndTime() +" rem "+selectedTask.getRemainTime()+"size"+tasks_Arri.size()); 
           
