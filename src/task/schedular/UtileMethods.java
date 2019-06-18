@@ -194,38 +194,69 @@ public class UtileMethods {
    public static List<Task> preeptive_Orgnizer(List<Task> tasks)
    {
         List<Task> result = new ArrayList<>() ;  
-      Task task = new Task () ; int end =0; 
+          
+    
         
-     for(int i=1; i<tasks.size(); i++)
-       { List<Task> temp = new ArrayList<>();
+     for(int i=0; i<tasks.size(); i++)
+       { 
+             Task tempTask = null ; 
+             int end = 0;
+        List<Task> tempList = null; 
               // loop to get a list of tasks have the same name 
-              for(int k=1; k< (tasks.size()-1); k++)
+              for(int k=0; k< (tasks.size()); k++)
                {
-                 if(tasks.get(k).getName().equals("A"))
+                 if(tasks.get(k).getName().contains(tasks.get(i).getName()))
                  {
-                     temp.add(tasks.get(k));
-                     task.setFlag(false);
+                  tempList = new ArrayList<>() ; 
+                  tempList.add(tasks.get(i));
+                 //System.out.println("temp list "+tasks.get(i).getName() );
+                 //end = tasks.get(k).getEndTime();
                  }
                 }
-              // now assiging last end time to the first task 
-             end   = temp.get(temp.size()-1).getEndTime();
+            
               
-              task= temp.get(0);
-              task.setEndTime(end);
-              
-              // add to list 
-              if(!task.getFlag())
-              {
-                  tasks.add(task);
-                  task.setFlag(true);
-               //   System.out.println(task.getName() + " "+task.getStartTime()+" & "+task.getEndTime());
-                  
+              if(tempList!=null )
+              { 
+                tempTask = tempList.get(0);
+                // take the last elment's time 
+                 end = tempTask.getEndTime();
+
+                if(!check_Eistance(result,tempTask))
+                {                
+                  tempTask.setEndTime(end);
+                  result.add(tempTask);
+                System.out.println(tempTask.getName() + "start  "+tempTask.getStartTime()+"end  "+tempTask.getEndTime());
+                } 
               }
+              
             
        }
 
-     System.out.println(result.size());
+     
    return result ; 
    } 
 
+   // helpful  method to check if task existe in tasks  
+  static boolean check_Eistance (List<Task> tasks ,Task task)
+           
+   {
+       boolean status = false ;
+      if (tasks.size() > 0)
+      {
+              // comming loop to check if the task not added before 
+                for(int t=0; t<tasks.size(); t++)
+                { 
+                   if(tasks.get(t).getName().contains(task.getName()))
+                   {  
+                   status = true ;
+                   }
+                }
+   
+      }
+      else status = false ;
+          
+          
+      return status;    
+   
+   }
 }
