@@ -84,10 +84,10 @@ public class RR extends Algorithm {
                flag =true ; 
                
             }   
-            System.out.println("task"+result_list.get(i).getName() + " rem "+result_list.get(i).getRemainTime());
+        //  System.out.println("task"+result_list.get(i).getName() + " rem "+result_list.get(i).getRemainTime());
             
             
-            if(result_list.get(i).getRemainTime()!=0) 
+            if(result_list.get(i).getRemainTime() > 0) 
             {  
             queue.add(result_list.get(i)) ; 
             }
@@ -99,14 +99,16 @@ public class RR extends Algorithm {
          
         
         List<Task> tasks_Setted =   UtileMethods.setParam(out) ;
+        
+      tasks_Setted = UtileMethods.preeptive_orgnizer(tasks_Setted) ;
   
         // start calculation using the parent methods 
-       // this.art = this.art_Calculation(tasks_Setted);   
-      //  this.att = this.att_Calculation(tasks_Setted);  
-      //  this.awt = this.awt_Calculation(tasks_Setted); 
-       // this.ufactor = this.ufactor_Calculation(tasks_Setted); 
-      //  this.throughput = this.throughput_Calculation(tasks_Setted); 
-       // this.prop = this.prop_Calculation(tasks_Setted); 
+        this.art = this.art_Calculation(tasks_Setted);   
+        this.att = this.att_Calculation(tasks_Setted);  
+        this.awt = this.awt_Calculation(tasks_Setted); 
+        this.ufactor = this.ufactor_Calculation(tasks_Setted); 
+        this.throughput = this.throughput_Calculation(tasks_Setted); 
+        this.prop = this.prop_Calculation(tasks_Setted); 
       
       return tasks_Setted ;
   
@@ -114,9 +116,8 @@ public class RR extends Algorithm {
 
 
 
-
  //==============================================================================
-   //this method put the arrived task into queue
+   //this method check which task is arrived and put into queue
    
    public  void addArrived(List<Task> tasks , int index)
    {

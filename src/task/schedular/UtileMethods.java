@@ -188,33 +188,44 @@ public class UtileMethods {
      
    return tasks ; 
    } 
- 
-    //==============================================================================
+ //==============================================================================
    //this method to inseryt idle task in this list 
    
-   public static List<Task> getDelivered(List<Task> tasks , int time )
+   public static List<Task> preeptive_Orgnizer(List<Task> tasks)
    {
-       List<Task> tasks_Arri = new ArrayList<>() ; 
-   try{
-                  // loop in tasks to check which is deliverd 
-              for(int k=0;k<tasks.size();k++)
-               { 
-                   if(tasks.get(k).getArrivalTime()== time )
-                   {   
-                       tasks_Arri.add(tasks.get(k));
-                      System.out.println("Task Recived = "+tasks.get(k).getName());
-                   }
+        List<Task> result = new ArrayList<>() ;  
+      Task task = new Task () ; int end =0; 
+        
+     for(int i=1; i<tasks.size(); i++)
+       { List<Task> temp = new ArrayList<>();
+              // loop to get a list of tasks have the same name 
+              for(int k=1; k< (tasks.size()-1); k++)
+               {
+                 if(tasks.get(k).getName().equals("A"))
+                 {
+                     temp.add(tasks.get(k));
+                     task.setFlag(false);
+                 }
                 }
+              // now assiging last end time to the first task 
+             end   = temp.get(temp.size()-1).getEndTime();
               
-             }catch(Exception e)
-                     {  e.printStackTrace();
-  
-                     }
-   return tasks_Arri ; 
-}
-   
+              task= temp.get(0);
+              task.setEndTime(end);
+              
+              // add to list 
+              if(!task.getFlag())
+              {
+                  tasks.add(task);
+                  task.setFlag(true);
+               //   System.out.println(task.getName() + " "+task.getStartTime()+" & "+task.getEndTime());
+                  
+              }
+            
+       }
 
-
-
+     System.out.println(result.size());
+   return result ; 
+   } 
 
 }

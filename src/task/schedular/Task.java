@@ -6,7 +6,15 @@ package task.schedular;
  */
 public class Task {
     private int  burstTime,arrivalTime ,startTime ,endTime, deadLine ,remainTime ; 
-    private String name ;
+    private String name , status ;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
     boolean flag  ;
 
     public boolean getFlag() {
