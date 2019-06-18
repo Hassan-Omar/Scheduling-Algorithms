@@ -2,12 +2,15 @@ package task.schedular;
 
 import java.util.ArrayList;
 import java.util.List;
-
+ 
 /**
  *
  * @author h.omar
  */
 public class SRF extends Algorithm {
+    
+      static List<Task> out = new ArrayList<>();
+    
 
     public SRF() {
         this.name="SRF" ;
@@ -82,25 +85,33 @@ public class SRF extends Algorithm {
           
           }
           
-          
-          
-        List<Task> tasks_Setted =   UtileMethods.setParam(result_list) ;
-  
-       // add idle tasks 
-        List<Task> tasks_Setted_idle  = UtileMethods.insert_ilde(tasks_Setted) ;
         
   
-        // start calculation using the parent methods 
-        this.art = this.art_Calculation(tasks_Setted_idle);   
-        this.att = this.att_Calculation(tasks_Setted_idle);  
-        this.awt = this.awt_Calculation(tasks_Setted_idle); 
-        // ufactor should be calculated for tasks_Setted_idle as idle affects on total time  
-        this.ufactor = this.ufactor_Calculation(tasks_Setted_idle); 
-        // throughput should be calculated for recived tasks 
-        this.throughput = this.throughput_Calculation(tasks_Setted_idle); 
-        this.prop = this.prop_Calculation(tasks_Setted); 
       
-      return tasks_Setted_idle ;
+        List<Task> tasks_Setted =   UtileMethods.setParam(result_list) ;
+        // add idle tasks 
+        List<Task> tasks_Setted_idle  = UtileMethods.insert_ilde(tasks_Setted) ;
+        // copy data to temp 
+        List<Task> temp = new ArrayList<>();
+       for(int p=0; p<tasks_Setted.size(); p++)
+       {
+         RR.dataCopy(tasks_Setted.get(p),temp);
+       }
+      
+       
+      out = UtileMethods.preeptive_Orgnizer(tasks_Setted) ;
+  
+      
+      
+        // start calculation using the parent methods 
+      this.art = this.art_Calculation(out);   
+      this.att = this.att_Calculation(out);  
+      this.awt = this.awt_Calculation(out); 
+      this.ufactor = this.ufactor_Calculation(out); 
+      this.throughput = this.throughput_Calculation(out); 
+      this.prop = this.prop_Calculation(out); 
+      
+      return temp ;
    } 
     
 }

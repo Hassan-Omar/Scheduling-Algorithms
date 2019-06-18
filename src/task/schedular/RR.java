@@ -11,6 +11,8 @@ import javax.swing.JOptionPane;
  * @author h.omar
  */
 public class RR extends Algorithm {
+    static List<Task> out_Cal = new ArrayList<>();
+    
     Queue<Task> queue = new LinkedList<>(); 
  int q=1 ; 
     public RR() {
@@ -100,19 +102,28 @@ public class RR extends Algorithm {
          
         
         List<Task> tasks_Setted =   UtileMethods.setParam(out) ;
-        List<Task> temp = tasks_Setted ;
-        
-        UtileMethods.preeptive_Orgnizer(temp) ;
-  
-        // start calculation using the parent methods 
-       // this.art = this.art_Calculation(tasks_Setted);   
-       // this.att = this.att_Calculation(tasks_Setted);  
-       // this.awt = this.awt_Calculation(tasks_Setted); 
-       // this.ufactor = this.ufactor_Calculation(tasks_Setted); 
-        //this.throughput = this.throughput_Calculation(tasks_Setted); 
-      //  this.prop = this.prop_Calculation(tasks_Setted); 
+       
+        // copy data to temp 
+        List<Task> temp = new ArrayList<>();
+       for(int p=0; p<tasks_Setted.size(); p++)
+       {
+         dataCopy(tasks_Setted.get(p),temp);
+       }
       
-      return tasks_Setted ;
+       
+      out_Cal = UtileMethods.preeptive_Orgnizer(tasks_Setted) ;
+  
+      
+      
+        // start calculation using the parent methods 
+      this.art = this.art_Calculation(out_Cal);   
+      this.att = this.att_Calculation(out_Cal);  
+      this.awt = this.awt_Calculation(out_Cal); 
+      this.ufactor = this.ufactor_Calculation(out_Cal); 
+      this.throughput = this.throughput_Calculation(out_Cal); 
+      this.prop = this.prop_Calculation(out_Cal); 
+      
+      return temp ;
   
    } 
 
@@ -144,7 +155,7 @@ public class RR extends Algorithm {
    }
 
 
-   void dataCopy(Task t , List<Task> o)
+   static void dataCopy(Task t , List<Task> o)
    {
     Task temp = new Task() ;
             temp.setArrivalTime(t.getArrivalTime());

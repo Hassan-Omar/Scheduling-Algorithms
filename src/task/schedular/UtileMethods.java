@@ -22,9 +22,10 @@ public class UtileMethods {
           int burst =tasks.get(i).getBurstTime();
           
            // setting pararms
-           tasks.get(i).setResponseTime(start-arrival) ; 
-           tasks.get(i).setWaitTime(end-arrival-burst) ;
            tasks.get(i).setTotalATime(end-arrival) ;
+           tasks.get(i).setResponseTime(start-arrival) ; 
+           tasks.get(i).setWaitTime(tasks.get(i).getTotalATime()-burst) ;
+     
            
            
            //System.out.println(" t  " +tasks.get(i).getWaitTime() );  
@@ -209,8 +210,8 @@ public class UtileMethods {
                  {
                   tempList = new ArrayList<>() ; 
                   tempList.add(tasks.get(i));
-                 //System.out.println("temp list "+tasks.get(i).getName() );
-                 //end = tasks.get(k).getEndTime();
+                  // end we be updated and we will get the last 
+                  end = tasks.get(k).getEndTime();
                  }
                 }
             
@@ -219,20 +220,17 @@ public class UtileMethods {
               { 
                 tempTask = tempList.get(0);
                 // take the last elment's time 
-                 end = tempTask.getEndTime();
+                
 
                 if(!check_Eistance(result,tempTask))
                 {                
                   tempTask.setEndTime(end);
                   result.add(tempTask);
-                System.out.println(tempTask.getName() + "start  "+tempTask.getStartTime()+"end  "+tempTask.getEndTime());
-                } 
+              } 
               }
               
             
-       }
-
-     
+       } 
    return result ; 
    } 
 
