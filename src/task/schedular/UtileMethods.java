@@ -195,9 +195,7 @@ public class UtileMethods {
    public static List<Task> preeptive_Orgnizer(List<Task> tasks)
    {
         List<Task> result = new ArrayList<>() ;  
-          
-    
-        
+              
      for(int i=0; i<tasks.size(); i++)
        { 
              Task tempTask = null ; 
@@ -226,6 +224,7 @@ public class UtileMethods {
                 {                
                   tempTask.setEndTime(end);
                   result.add(tempTask);
+                  System.out.println(tempTask.getName()+" staart " + tempTask.getStartTime() +" end " + tempTask.getEndTime());
               } 
               }
               

@@ -87,7 +87,7 @@ public class RR extends Algorithm {
                flag =true ; 
                
             }   
-        //  System.out.println("task"+result_list.get(i).getName() + " rem "+result_list.get(i).getRemainTime());
+          System.out.println("task"+result_list.get(i).getName() + " rem "+result_list.get(i).getRemainTime());
             
             
             if(result_list.get(i).getRemainTime() > 0) 
@@ -113,7 +113,7 @@ public class RR extends Algorithm {
        
       out_Cal = UtileMethods.preeptive_Orgnizer(tasks_Setted) ;
   
-      
+      out_Cal =  UtileMethods.setParam(out_Cal) ;
       
         // start calculation using the parent methods 
       this.art = this.art_Calculation(out_Cal);   
