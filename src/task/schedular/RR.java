@@ -87,7 +87,7 @@ public class RR extends Algorithm {
                flag =true ; 
                
             }   
-          System.out.println("task"+result_list.get(i).getName() + " rem "+result_list.get(i).getRemainTime());
+          //System.out.println("task"+result_list.get(i).getName() + " rem "+result_list.get(i).getRemainTime());
             
             
             if(result_list.get(i).getRemainTime() > 0) 
@@ -112,7 +112,7 @@ public class RR extends Algorithm {
       
        
       out_Cal = UtileMethods.preeptive_Orgnizer(tasks_Setted) ;
-  
+      // set the param again 
       out_Cal =  UtileMethods.setParam(out_Cal) ;
       
         // start calculation using the parent methods 
@@ -134,11 +134,11 @@ public class RR extends Algorithm {
    
    public  void addArrived(List<Task> tasks , int index)
    {
-    
+     // loop in arrived task to add them in the queue
      for(int x=0; x<tasks.size(); x++)
      {
      if(tasks.get(x).getArrivalTime() <=index)   
-        { 
+        { // chcek if the task not added yet 
         if(!tasks.get(x).getFlag())
         {  
          queue.add(tasks.get(x)) ;
